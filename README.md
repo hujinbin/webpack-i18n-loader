@@ -39,9 +39,9 @@ Hello, world
 ## 安装
 
 ```bash
-npm i webpack-vuei18n-loader --save-dev
+npm i webpack-i18n-loader --save-dev
 
-yarn add webpack-vuei18n-loader --dev
+yarn add webpack-i18n-loader --dev
 ```
 
 ## 使用
@@ -128,8 +128,6 @@ Vue.locale('zh', {
 });
 
 //main.js 入口文件
-import './i18n'
-//...其他逻辑
 
 ```
 
