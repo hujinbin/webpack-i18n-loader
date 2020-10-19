@@ -1,4 +1,4 @@
-# webpack-vuei18n-loader
+# webpack-i18n-loader
 
 ---
 
