@@ -1,0 +1,26 @@
+{
+  "name": "webpack-vuei18n-loader",
+  "version": "1.0.0",
+  "description": "webpack i18n-loader and generate tool",
+  "main": "index.js",
+  "bin": {
+    "i18n": "bin/i18n.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack",
+    "vue-i18n-loader"
+  ],
+  "repository": {
+    "url": "https://github.com/hujinbin/webpack-i18n-loader"
+  },
+  "author": "hujinbin <437044048@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "commander": "^3.0.2",
+    "loader-utils": "^1.2.3"
+  }
+}
