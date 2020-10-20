@@ -1,5 +1,5 @@
 {
-  "name": "webpack-vuei18n-loader",
+  "name": "webpack-i18n-loader",
   "version": "1.0.0",
   "description": "webpack i18n-loader and generate tool",
   "main": "index.js",
