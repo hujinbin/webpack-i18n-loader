@@ -13,7 +13,7 @@ vue-i18n@5.x版本的wepback loader，给出一个简单的demo。
 *资源文件*
 
 ```javascript
-//zh_cn.js
+//zh.js
 module.exports = {
   "a018615b35588a01": "你好，世界" //key是根据中文生成16的MD5
 }
@@ -60,7 +60,7 @@ Usage: i18n generate [options] [src]
 
 Options:
   -p, --filepath <filepath>  设置国际化文件的路径，默认为执行目录下的src/locale目录，请务必设置一个单独的目录来放置国际化资源文件
-  -f, --filename <filename>  设置生成文件的文件名，默认为 zh_cn，会自动添加.js 后缀
+  -f, --filename <filename>  设置生成文件的文件名，默认为 zh，会自动添加.js 后缀
   -h, --help                 output usage information
 ```
 
@@ -84,9 +84,9 @@ module.exports = {
             loader: 'vue-loader',
           },
           {
-            loader: 'webpack-vuei18n-loader', //一定要作为第一个loader
+            loader: 'webpack-i18n-loader', //一定要作为第一个loader
             options:{
-              localeFile: path.join(process.cwd(), 'src/locale/zh_cn.js') //与cli中相同，若生成的时候保持默认，则不需要配置
+              localeFile: path.join(process.cwd(), 'src/locale/zh.js') //与cli中相同，若生成的时候保持默认，则不需要配置
             }
           }
         ]
@@ -99,9 +99,9 @@ module.exports = {
             loader: 'babel-loader',
           },
           {
-            loader: 'webpack-vuei18n-loader', //一定要作为第一个loader
+            loader: 'webpack-i18n-loader', //一定要作为第一个loader
             options:{
-              localeFile: path.join(process.cwd(), 'src/locale/zh_cn.js') //与cli中相同，若生成的时候保持默认，则不需要配置
+              localeFile: path.join(process.cwd(), 'src/locale/zh.js') //与cli中相同，若生成的时候保持默认，则不需要配置
             }
           }
         ]
@@ -124,7 +124,7 @@ import VueI18n from 'vue-i18n';
 Vue.use(VueI18n);
 Vue.config.lang = 'zh';
 Vue.locale('zh', {
-  ...require('./locale/zh_cn'),
+  ...require('./locale/zh'),
 });
 
 //main.js 入口文件
@@ -132,10 +132,30 @@ Vue.locale('zh', {
 ```
 
 
+### 自动翻译
+
+```bash
+npx i18n init 
+初始化翻译配置项
+
+npx i18n translate
+开始翻译文件
+```
+
+初始化项目，生成的配置文件 i18n-config.json
+```bash
+module.exports = {
+    dir: "./src/locale", // 目标目录
+    file: 'zh.js', // 翻译的文件
+    distLangs: ['en'], // 要翻译的语言
+    appId:'', // 百度翻译appid
+    secret:'', // 百度翻译密钥
+};
+```
+
 
 ## 注意
 
-- 本组件只适用于vue-i18n@5.x 版本，由于最新版本更新过大，暂时没有找到办法在js文件以及props中使用国际化支持，故不支持高于 5.x 的版本，请悉知。
 - cli命令建议在根目录直接执行 `npx i18n generate`,这样在配置loader的时候不需要额外配置，减少出错几率，如果需要自己配置参数，一定要记住，国际化资源目录一定要是单独的，否则会被loader替换的时候将资源文件也替换掉，同时在配置loader 的时候，参数值一定为目录+文件名的值（包括后缀）
 - 一定要在所有逻辑之前进行国际化配置，否则初始化 $t 方法的时候会出错，建议直接用一个单独的文件进行配置并在入口文件行首引入
 - 建议字符串的连接用模板字符串方式，这样其中涉及到的一些动态参数也会自动生成 {0} {1} 这样的参数注入

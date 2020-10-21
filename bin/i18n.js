@@ -11,8 +11,8 @@ commander.version(packageInfo.version, '-v, --version');
 commander.command('generate [src]')
   .description('对src目录下的vue/js文件进行中文提取并生成国际化资源文件，默认src为执行目录下的src目录')
   .option('-p, --filepath <filepath>', '设置国际化文件的路径，默认为执行目录下的src/locale目录，请务必设置一个单独的目录来放置国际化资源文件')
-  .option('-f, --filename <filename>', '设置生成文件的文件名，默认为 zh_cn，会自动添加.js 后缀')
-  .action((src = 'src', {filepath = 'src/locale', filename = 'zh_cn'}) => {
+  .option('-f, --filename <filename>', '设置生成文件的文件名，默认为 zh，会自动添加.js 后缀')
+  .action((src = 'src', {filepath = 'src/locale', filename = 'zh'}) => {
     generate(src, {filepath, filename});
   });
 
@@ -29,7 +29,7 @@ commander.command('init')
 
 commander.command('translate')
 .action(()=>{
-
+  translate();
 })
 
 if (process.argv.length === 2) {
