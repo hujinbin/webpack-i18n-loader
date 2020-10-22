@@ -22,6 +22,7 @@
     "colors": "^1.4.0",
     "commander": "^3.0.2",
     "loader-utils": "^1.2.3",
+    "ora": "^5.1.0",
     "request": "^2.88.2"
   }
 }

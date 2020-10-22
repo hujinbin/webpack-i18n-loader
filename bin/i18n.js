@@ -23,11 +23,13 @@ commander.on('command:*', function () {
 
 
 commander.command('init')
+.description('初始化翻译配置项')
 .action(()=>{
   init();
 })
 
 commander.command('translate')
+.description('开始启用自动翻译')
 .action(()=>{
   translate();
 })
