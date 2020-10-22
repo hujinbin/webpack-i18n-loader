@@ -1,8 +1,8 @@
-# webpack-i18n-loader
+# webpack-in-loader
 
 ---
 
-vue-i18n@5.x版本的wepback loader，给出一个简单的demo。
+vue-i18n版本的wepback loader，给出一个简单的demo。
 
 *HTML*
 
@@ -39,9 +39,9 @@ Hello, world
 ## 安装
 
 ```bash
-npm i webpack-i18n-loader --save-dev
+npm i webpack-in-loader --save-dev
 
-yarn add webpack-i18n-loader --dev
+yarn add webpack-in-loader --dev
 ```
 
 ## 使用
@@ -84,7 +84,7 @@ module.exports = {
             loader: 'vue-loader',
           },
           {
-            loader: 'webpack-i18n-loader', //一定要作为第一个loader
+            loader: 'webpack-in-loader', //一定要作为第一个loader
             options:{
               localeFile: path.join(process.cwd(), 'src/locale/zh.js') //与cli中相同，若生成的时候保持默认，则不需要配置
             }
@@ -99,7 +99,7 @@ module.exports = {
             loader: 'babel-loader',
           },
           {
-            loader: 'webpack-i18n-loader', //一定要作为第一个loader
+            loader: 'webpack-in-loader', //一定要作为第一个loader
             options:{
               localeFile: path.join(process.cwd(), 'src/locale/zh.js') //与cli中相同，若生成的时候保持默认，则不需要配置
             }
@@ -139,7 +139,8 @@ npx i18n init
 初始化翻译配置项
 
 npx i18n translate
-开始翻译文件
+开始翻译文件 
+暂时只支持中文翻译成英文
 ```
 
 初始化项目，生成的配置文件 i18n-config.json
