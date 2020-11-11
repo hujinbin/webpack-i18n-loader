@@ -23,7 +23,6 @@ const initMessages = ({localeFile}) => {
     });
   }
 };
-
 module.exports = function (source) {
   let options = loaderUtils.getOptions(this);
   options = Object.assign({
@@ -35,7 +34,6 @@ module.exports = function (source) {
   if (path.extname(this.resourcePath) === '.js' && this.resourcePath.indexOf(path.parse(options.localeFile).dir) < 0) {
     //处理js文件
     result = replaceScriptContent(source);
-    console.log(source)
   } else if (path.extname(this.resourcePath) === '.vue') {
     //处理vue文件
     let query = loaderUtils.parseQuery(this.resourceQuery || '?');
