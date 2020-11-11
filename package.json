@@ -1,7 +1,7 @@
 {
   "name": "webpack-in-loader",
   "version": "1.0.0",
-  "description": "webpack in-loader and generate tool",
+  "description": "webpack-in-loader and generate tool",
   "main": "index.js",
   "bin": {
     "i18n": "bin/i18n.js"
