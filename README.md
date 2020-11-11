@@ -92,7 +92,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.jsx?$/,
+        test: /\.(jsx|js)?$/,
         include: [resolve('src')],
         use:[
           {
@@ -116,6 +116,7 @@ module.exports = {
 此处一定要注意！！！否则是个坑。
 
 国际化的配置一定一定要在所有逻辑之前，建议采用 i18n.js 文件单独配置，然后在入口文件最先引入这个文件即可！
+要确保（'@/i18n'）这个路径可以取到i18n对象
 
 ```javascript
 //i18n.js 国际化配置文件
@@ -128,6 +129,7 @@ Vue.locale('zh', {
 });
 
 //main.js 入口文件
+import i18n from '@/i18n';
 
 ```
 
