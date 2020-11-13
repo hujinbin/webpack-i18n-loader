@@ -23,6 +23,7 @@ const initMessages = ({localeFile}) => {
     });
   }
 };
+
 module.exports = function (source) {
   let options = loaderUtils.getOptions(this);
   options = Object.assign({
@@ -31,22 +32,20 @@ module.exports = function (source) {
   initMessages(options);
   if (!messages) return source;
   let result = '';
+  if(String(this.resourcePath).indexOf('DialogModifiersTypes') === -1){
+    return source
+  }
   if (path.extname(this.resourcePath) === '.js' && this.resourcePath.indexOf(path.parse(options.localeFile).dir) < 0) {
     //处理js文件
     result = replaceScriptContent(source);
   } else if (path.extname(this.resourcePath) === '.vue') {
     //处理vue文件
-    let query = loaderUtils.parseQuery(this.resourceQuery || '?');
-    if (query.type === 'script' && query.lang === 'js') {
-      result = replaceScriptContent(source);
-    } else {
-      result = source.replace(/(<template[^>]*>)((.|\n)*)(<\/template>)/gim, (_, preTag, content, $3, afterTag) => {
-        return `${preTag}${replaceTemplateContent(content)}${afterTag}`;
-      });
-      result = result.replace(/(<script[^>]*>)((.|\n)*)(<\/script>)/gim, (_, preTag, content, $3, afterTag) => {
-        return `${preTag}${replaceScriptContent(content)}${afterTag}`;
-      });
-    }
+    result = source.replace(/(<template[^>]*>)((.|\n)*)(<\/template>)/gim, (_, preTag, content, $3, afterTag) => {
+      return `${preTag}${replaceTemplateContent(content)}${afterTag}`;
+    });
+    result = result.replace(/(<script[^>]*>)((.|\n)*)(<\/script>)/gim, (_, preTag, content, $3, afterTag) => {
+      return `${preTag}${replaceScriptContent(content)}${afterTag}`;
+    });
   } else {
     result = source;
   }
