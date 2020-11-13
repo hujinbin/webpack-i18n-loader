@@ -32,9 +32,6 @@ module.exports = function (source) {
   initMessages(options);
   if (!messages) return source;
   let result = '';
-  if(String(this.resourcePath).indexOf('DialogModifiersTypes') === -1){
-    return source
-  }
   if (path.extname(this.resourcePath) === '.js' && this.resourcePath.indexOf(path.parse(options.localeFile).dir) < 0) {
     //处理js文件
     result = replaceScriptContent(source);
