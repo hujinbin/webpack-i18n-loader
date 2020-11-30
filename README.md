@@ -150,12 +150,18 @@ npx i18n translate
 module.exports = {
     dir: "./src/locale", // 目标目录
     file: 'zh.js', // 翻译的文件
-    distLangs: ['en'], // 要翻译的语言
+    distLangs: ['en'], // 要翻译的语言  暂无用
     appId:'', // 百度翻译appid
     secret:'', // 百度翻译密钥
 };
 ```
 
+对应翻译语言代码
+
+![lang](./screenshot/lang.jpg)
+
+
+百度翻译文档：https://fanyi-api.baidu.com/product/113
 
 ## 注意
 
