@@ -9,7 +9,9 @@ const replaceTemplateContent = (content) => {
 const replaceScriptContent = (content) => {
   return FileProcess.generateScript(messages, content, true);
 };
-const initMessages = ({localeFile}) => {
+const initMessages = ({
+  localeFile
+}) => {
   //如果资源数据不存在，但资源文件存在，则将资源文件载入到资源数据中
   if (!messages && fs.existsSync(localeFile)) {
     messages = require(localeFile);
@@ -24,7 +26,24 @@ const initMessages = ({localeFile}) => {
   }
 };
 
+const {
+  config_file
+} = require('./lib/const');
+let config = {}
+let state = false // 读取配置状态 确保项目启动只读取一次
 module.exports = function (source) {
+  if(state === false){
+    if (fs.existsSync(config_file)) {
+      const processFile = path.join(process.cwd(), config_file);
+      config = require(processFile);
+    } else {
+      return source
+    }
+  }
+  state = true
+  if(config.open === false){
+    return source
+  }
   let options = loaderUtils.getOptions(this);
   options = Object.assign({
     localeFile: path.join(process.cwd(), 'src/locale/zh_cn.js')

@@ -148,9 +148,10 @@ npx i18n translate
 初始化项目，生成的配置文件 i18n-config.json
 ```bash
 module.exports = {
-    dir: "./src/locale", // 目标目录
+    dir: "./src/locale/", // 目标目录
     file: 'zh.js', // 翻译的文件
-    distLangs: ['en'], // 要翻译的语言  暂无用
+    distLangs: ['en'], // 要翻译的语言
+    open: true, // leader是否启用 默认true
     appId:'', // 百度翻译appid
     secret:'', // 百度翻译密钥
 };
