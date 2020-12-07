@@ -4,6 +4,7 @@ const packageInfo = require('../package.json');
 const commander = require('commander');
 const generate = require('../lib/generate');
 const translate = require('../lib/translate');
+const transform = require('../lib/transform');
 const init = require('../lib/init');
 
 commander.version(packageInfo.version, '-v, --version');
@@ -32,6 +33,12 @@ commander.command('translate')
 .description('开始启用自动翻译')
 .action(()=>{
   translate();
+})
+
+commander.command('transform')
+.description('已修改的map映射表导入语言包')
+.action(()=>{
+  transform();
 })
 
 if (process.argv.length === 2) {
