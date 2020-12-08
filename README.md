@@ -138,7 +138,7 @@ import i18n from '@/i18n';
 
 ```bash
 npx i18n init 
-初始化翻译配置项
+初始化翻译配置项（如已有配置项，不要重复执行，不然会覆盖）
 
 npx i18n translate
 开始翻译文件 
@@ -163,6 +163,19 @@ module.exports = {
 
 
 百度翻译文档：https://fanyi-api.baidu.com/product/113
+
+
+### 人工修改翻译导入
+人工审核百度翻译错误的语言包，可直接在map映射表内修改，执行以下命令重新生成语言包
+
+```bash
+npx i18n init 
+初始化翻译配置项（如已有配置项，不要重复执行，不然会覆盖）
+
+npx i18n translate
+开始从map文件中导入生成en.js语言包
+暂时只支持en.js.map导入en.js
+```
 
 ## 注意
 
