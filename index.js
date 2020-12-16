@@ -16,13 +16,16 @@ const initMessages = ({
   if (!messages && fs.existsSync(localeFile)) {
     messages = require(localeFile);
     //文件变化监听
-    fs.watchFile(localeFile, {
-      interval: 1000
-    }, _ => {
-      //删除require缓存并置空，等待下一次的载入
-      delete require.cache[require.resolve(localeFile)];
-      messages = null;
-    });
+    const isProduction = process.env.NODE_ENV === 'production'
+    if(!isProduction){
+      fs.watchFile(localeFile, {
+        interval: 1000
+      }, _ => {
+        //删除require缓存并置空，等待下一次的载入
+        delete require.cache[require.resolve(localeFile)];
+        messages = null;
+      });
+    }
   }
 };
 

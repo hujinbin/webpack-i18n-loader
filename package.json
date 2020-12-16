@@ -1,6 +1,6 @@
 {
   "name": "webpack-in-loader",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "webpack-in-loader and generate tool",
   "main": "index.js",
   "bin": {
