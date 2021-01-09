@@ -3,6 +3,8 @@ config/
 node_modules/
 src/
 static/
+screenshot/
+test/
 .babelrc
 .editorconfig
 .gitignore
