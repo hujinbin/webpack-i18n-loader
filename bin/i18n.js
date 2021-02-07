@@ -29,10 +29,10 @@ commander.command('init')
   init();
 })
 
-commander.command('translate')
+commander.command('translate [code]]')
 .description('开始启用自动翻译')
-.action(()=>{
-  translate();
+.action((code = 'en')=>{
+  translate(code);
 })
 
 commander.command('transform')
