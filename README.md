@@ -151,7 +151,7 @@ module.exports = {
     dir: "./src/locale/", // 目标目录
     file: 'zh.js', // 翻译的文件
     distLangs: ['en'], // 要翻译的语言
-    open: true, // leader是否启用 默认true
+    open: true, // leader是否启用 默认true 打包环境下不生效
     appId:'', // 百度翻译appid
     secret:'', // 百度翻译密钥
 };

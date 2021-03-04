@@ -39,12 +39,14 @@ module.exports = function (source) {
     if (fs.existsSync(config_file)) {
       const processFile = path.join(process.cwd(), config_file);
       config = require(processFile);
-    } else {
-      return source
-    }
+    } 
+    // else {
+    //   return source
+    // }
   }
   state = true
-  if(config.open === false){
+  // 不在打包环境下生效
+  if(config.open === false && process.env.NODE_ENV !== 'production'){
     return source
   }
   let options = loaderUtils.getOptions(this);
