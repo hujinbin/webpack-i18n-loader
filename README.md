@@ -140,10 +140,11 @@ import i18n from '@/i18n';
 npx i18n init 
 初始化翻译配置项（如已有配置项，不要重复执行，不然会覆盖）
 
-npx i18n translate
+npx i18n translate [code]
 开始翻译文件 
-暂时只支持中文翻译成英文
+默认中文翻译成英文   code  默认值为en
 ```
+code必须为百度翻译文档上的code值
 
 初始化项目，生成的配置文件 i18n-config.json
 ```bash
