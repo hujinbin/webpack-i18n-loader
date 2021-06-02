@@ -1,14 +1,13 @@
 {
   "name": "webpack-in-loader",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "webpack-in-loader and generate tool",
   "main": "index.js",
   "bin": {
     "i18n": "bin/i18n.js"
   },
   "scripts": {
-    "test": "jest --env node",
-    "test-k": "karma start test/karma.conf.js --single-run",
+    "test": "jest",
     "test-m": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -26,12 +25,6 @@
     "commander": "^3.0.2",
     "hash-sum": "^2.0.0",
     "jest": "^26.6.3",
-    "karma": "^6.1.1",
-    "karma-chrome-launcher": "^3.1.0",
-    "karma-firefox-launcher": "^2.1.0",
-    "karma-ie-launcher": "^1.0.0",
-    "karma-mocha": "^2.0.1",
-    "karma-requirejs": "^1.1.0",
     "loader-utils": "^1.4.0",
     "memfs": "^3.2.2",
     "normalize-newline": "^4.0.0",

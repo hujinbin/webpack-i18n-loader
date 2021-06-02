@@ -1,5 +1,15 @@
 ### 更新日志
 
+
+<a name="1.0.11"></a>
+## [1.0.11](https://github.com/hujinbin/webpack-i18n-loader/tree/1.0.11)
+
+#### 1.0.11
+
+修复抓取中文后的原有内容的转义问题
+
+
+
 <a name="1.0.10"></a>
 ## [1.0.10](https://github.com/hujinbin/webpack-i18n-loader/tree/1.0.10)
 
