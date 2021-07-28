@@ -2,7 +2,7 @@
 
 
 <a name="1.1.0"></a>
-## [1.1.0](https://github.com/hujinbin/webpack-i18n-loader/tree/1.1.0)
+## [1.1.0](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.0)
 
 #### 1.1.0
 
@@ -11,7 +11,7 @@
 
 
 <a name="1.0.11"></a>
-## [1.0.11](https://github.com/hujinbin/webpack-i18n-loader/tree/1.0.11)
+## [1.0.11](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.0.11)
 
 #### 1.0.11
 
@@ -20,7 +20,7 @@
 
 
 <a name="1.0.10"></a>
-## [1.0.10](https://github.com/hujinbin/webpack-i18n-loader/tree/1.0.10)
+## [1.0.10](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.0.10)
 
 #### 1.0.10
 
