@@ -10,7 +10,6 @@ const config = {
 		'index':'./index',
 	},
 	module:{
-		
 	},
 	output:{
 		library:'bundle',
