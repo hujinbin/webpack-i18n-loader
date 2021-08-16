@@ -51,83 +51,83 @@ function genId (file) {
   return hash(path.join('test', 'fixtures', file).replace(/\\/g, '/'))
 }
 
-function bundle (options, cb, wontThrowError) {
-  let config = merge({}, baseConfig, options)
+// function bundle (options, cb, wontThrowError) {
+//   let config = merge({}, baseConfig, options)
 
-  if (config.vue) {
-    const vueOptions = options.vue
-    delete config.vue
-    const vueIndex = config.module.rules.findIndex(r => r.test.test('.vue'))
-    const vueRule = config.module.rules[vueIndex]
-    config.module.rules[vueIndex] = Object.assign({}, vueRule, { options: vueOptions })
-  }
+//   if (config.vue) {
+//     const vueOptions = options.vue
+//     delete config.vue
+//     const vueIndex = config.module.rules.findIndex(r => r.test.test('.vue'))
+//     const vueRule = config.module.rules[vueIndex]
+//     config.module.rules[vueIndex] = Object.assign({}, vueRule, { options: vueOptions })
+//   }
 
-  if (/\.vue/.test(config.entry)) {
-    const vueFile = config.entry
-    config = merge(config, {
-      entry: require.resolve('./fixtures/entry'),
-      resolve: {
-        alias: {
-          '~target': path.resolve(__dirname, './fixtures', vueFile)
-        }
-      }
-    })
-  }
+//   if (/\.vue/.test(config.entry)) {
+//     const vueFile = config.entry
+//     config = merge(config, {
+//       entry: require.resolve('./fixtures/entry'),
+//       resolve: {
+//         alias: {
+//           '~target': path.resolve(__dirname, './fixtures', vueFile)
+//         }
+//       }
+//     })
+//   }
 
-  if (options.modify) {
-    delete config.modify
-    options.modify(config)
-  }
+//   if (options.modify) {
+//     delete config.modify
+//     options.modify(config)
+//   }
 
-  const webpackCompiler = webpack(config)
-  webpackCompiler.outputFileSystem = mfs
-  webpackCompiler.outputFileSystem.join = path.join.bind(path)
-  webpackCompiler.run((err, stats) => {
-    if (!wontThrowError) {
-      expect(err).toBeNull()
+//   const webpackCompiler = webpack(config)
+//   webpackCompiler.outputFileSystem = mfs
+//   webpackCompiler.outputFileSystem.join = path.join.bind(path)
+//   webpackCompiler.run((err, stats) => {
+//     if (!wontThrowError) {
+//       expect(err).toBeNull()
 
-      if (stats.hasErrors()) {
-        return console.error(stats.toString('errors-only'))
-      }
-      expect(stats.hasErrors()).toBeFalsy()
-    }
-    cb(mfs.readFileSync('/test.build.js').toString(), stats, err)
-  })
-}
+//       if (stats.hasErrors()) {
+//         return console.error(stats.toString('errors-only'))
+//       }
+//       expect(stats.hasErrors()).toBeFalsy()
+//     }
+//     cb(mfs.readFileSync('/test.build.js').toString(), stats, err)
+//   })
+// }
 
 function mockBundleAndRun (options, assert, wontThrowError) {
-  const { suppressJSDOMConsole } = options
-  delete options.suppressJSDOMConsole
-  bundle(options, (code, bundleStats, bundleError) => {
-    let dom, jsdomError
-    try {
-      dom = new JSDOM(`<!DOCTYPE html><html><head></head><body></body></html>`, {
-        runScripts: 'outside-only',
-        virtualConsole: suppressJSDOMConsole ? new VirtualConsole() : null
-      })
-      dom.window.eval(code)
-    } catch (e) {
-      console.error(`JSDOM error:\n${e.stack}`)
-      jsdomError = e
-    }
+  // const { suppressJSDOMConsole } = options
+  // delete options.suppressJSDOMConsole
+  // bundle(options, (code, bundleStats, bundleError) => {
+    // let dom, jsdomError
+    // try {
+    //   dom = new JSDOM(`<!DOCTYPE html><html><head></head><body></body></html>`, {
+    //     runScripts: 'outside-only',
+    //     virtualConsole: suppressJSDOMConsole ? new VirtualConsole() : null
+    //   })
+    //   dom.window.eval(code)
+    // } catch (e) {
+    //   console.error(`JSDOM error:\n${e.stack}`)
+    //   jsdomError = e
+    // }
 
-    const { window } = dom
-    const { module, exports } = window
-    const instance = {}
-    if (module && module.beforeCreate) {
-      module.beforeCreate.forEach(hook => hook.call(instance))
-    }
-    assert({
-      window,
-      module,
-      exports,
-      instance,
-      code,
-      jsdomError,
-      bundleStats,
-      bundleError
-    })
-  }, wontThrowError)
+    // const { window } = dom
+    // const { module, exports } = window
+    // const instance = {}
+    // if (module && module.beforeCreate) {
+    //   module.beforeCreate.forEach(hook => hook.call(instance))
+    // }
+    // assert({
+    //   window,
+    //   module,
+    //   exports,
+    //   instance,
+    //   code,
+    //   jsdomError,
+    //   bundleStats,
+    //   bundleError
+  //   })
+  // }, wontThrowError)
 }
 
 function mockRender (options, data = {}) {
@@ -159,7 +159,7 @@ module.exports = {
   mfs,
   baseConfig,
   genId,
-  bundle,
+  // bundle,
   mockBundleAndRun,
   mockRender,
   interopDefault,
