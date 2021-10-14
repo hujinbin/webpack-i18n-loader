@@ -1,4 +1,4 @@
-const replace = require('../replace')
+// const replace = require('../replace')
 const fs = require('fs')
 
 const config = {

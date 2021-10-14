@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const FileProcess = require(`${process.cwd()}/lib/fileProcess`);
 const processSource = require(`${process.cwd()}/lib/processSource`)
 const generateI18nData = require(`${process.cwd()}/lib/generate`)
 const { setDefaultData, isInclude, isExclude } = require(`${process.cwd()}/lib/utils`)
