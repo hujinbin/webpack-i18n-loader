@@ -1,26 +1,26 @@
-const path = require('path')
-const {
-  mockRender,
-  mockBundleAndRun
-} = require('./utils')
+// const path = require('path')
+// const {
+//   mockRender,
+//   mockBundleAndRun
+// } = require('./utils')
 
-test('template with comments', done => {
-  mockBundleAndRun({
-    entry: 'test.vue'
-  }, ({ window, module }) => {
-    expect(module.comments).toBe(true)
-    const vnode = mockRender(module, {
-      msg: 'hi'
-    })
-    expect(vnode.tag).toBe('div')
-    expect(vnode.children.length).toBe(2)
-    expect(vnode.children[0].data.staticClass).toBe('red')
-    expect(vnode.children[0].children[0].text).toBe('hi')
-    expect(vnode.children[1].isComment).toBe(true)
-    expect(vnode.children[1].text).toBe(' comment here ')
-    done()
-  })
-})
+// test('template with comments', done => {
+//   mockBundleAndRun({
+//     entry: 'test.vue'
+//   }, ({ window, module }) => {
+//     expect(module.comments).toBe(true)
+//     const vnode = mockRender(module, {
+//       msg: 'hi'
+//     })
+//     expect(vnode.tag).toBe('div')
+//     expect(vnode.children.length).toBe(2)
+//     expect(vnode.children[0].data.staticClass).toBe('red')
+//     expect(vnode.children[0].children[0].text).toBe('hi')
+//     expect(vnode.children[1].isComment).toBe(true)
+//     expect(vnode.children[1].text).toBe(' comment here ')
+//     done()
+//   })
+// })
 
 // test('template with comments', done => {
 //   mockBundleAndRun({

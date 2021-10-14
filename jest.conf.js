@@ -5,7 +5,8 @@ module.exports = {
   moduleFileExtensions: [
     'js',
     'json',
-    'vue'
+    'vue',
+    'node',
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'

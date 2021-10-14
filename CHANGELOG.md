@@ -1,7 +1,7 @@
 ### 更新日志
 
 <a name="1.1.1"></a>
-## [1.1.0](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.1)
+## [1.1.1](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.1)
 
 #### 1.1.1
 
