@@ -25,13 +25,39 @@ function readDir(fileName, isRead, resolve) {
                 if (isExclude(exclude, file)) return
                 if (isInclude(include, file) || isRead) {
                     if (/(\.vue)|(\.js)$/.test(name) || (config.extra && config.extra.test(name))) {
-                        readFile(`${fileName}/${file}`, ++id, resolve)
+                        path.extname(file) === '.vue' ? generateVueFile(file) : generateJsFile(file);
                     }
                 }
             }
         })
     })
 }
+
+const generateVueFile = (file) => {
+    let processFile = path.relative(process.cwd(), file);
+    // if(processFile !== 'src/modules/DataSource/views/DataSourceList/DialogOfAdd.vue'){
+    //   return false;
+    // }
+    console.log(`➤ ${processFile.yellow}`.blue);
+    let content = fs.readFileSync(file, 'utf8');
+    // // 获取模板部分
+    let [, templateContent = ''] = content.match(/<template[^>]*>((.|\n)*)<\/template>/im) || [];
+    FileProcess.generateTemplate(messages, templateContent);
+    //获取script部分
+    let [, scriptContent = ''] = content.match(/<script[^>]*>((.|\n)*)<\/script>/im) || [];
+    FileProcess.generateScript(messages, scriptContent);
+    console.log(`✔ ${processFile.yellow}`.green);
+  };
+  const generateJsFile = (file) => {
+    let processFile = path.relative(process.cwd(), file);
+    // if(processFile !== 'src/modules/DataModel/services/model.js'){
+    //   return false;
+    // }
+    console.log(`➤ ${processFile.yellow}`.blue);
+    let content = fs.readFileSync(file, 'utf8');
+    FileProcess.generateScript(messages, content);
+    console.log(`✔ ${processFile.yellow}`.green);
+  };
 
 function readFile(fileName, curID, resolve) {
     done[curID] = false
