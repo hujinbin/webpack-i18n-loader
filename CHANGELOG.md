@@ -5,12 +5,14 @@
 
 #### 1.1.2
 
+* 优化英文翻译的html标签格式
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.1)
 
 #### 1.1.1
 
-* 优化英文翻译的html标签格式
+* 优化英文翻译的html标签和英文翻译规范
 
 <a name="1.1.0"></a>
 ## [1.1.0](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.0)
