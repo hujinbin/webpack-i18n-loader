@@ -1,7 +1,7 @@
 {
   "name": "webpack-in-loader",
   "version": "1.1.2",
-  "description": "webpack-in-loader and generate tool",
+  "description": "webpack-in-loader 一键式实现项目的国际化 语言包 处理的过程",
   "main": "index.js",
   "bin": {
     "i18n": "bin/i18n.js"
