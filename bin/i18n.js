@@ -6,6 +6,7 @@ const generate = require('../lib/generate');
 const translate = require('../lib/translate');
 const transform = require('../lib/transform');
 const init = require('../lib/init');
+const clear = require('../lib/clear');
 
 commander.version(packageInfo.version, '-v, --version');
 
@@ -39,6 +40,12 @@ commander.command('transform')
 .description('已修改的map映射表导入语言包')
 .action(()=>{
   transform();
+})
+
+commander.command('clear')
+.description('清除未再使用的语言包')
+.action(()=>{
+  clear();
 })
 
 if (process.argv.length === 2) {
