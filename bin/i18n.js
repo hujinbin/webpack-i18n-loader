@@ -42,10 +42,10 @@ commander.command('transform')
   transform();
 })
 
-commander.command('clear')
+commander.command('clear [src]')
 .description('清除未再使用的语言包')
-.action(()=>{
-  clear();
+.action((src = 'src')=>{
+  clear(src);
 })
 
 if (process.argv.length === 2) {
