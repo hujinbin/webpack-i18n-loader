@@ -6,6 +6,7 @@
 #### 1.1.3
 
 * 优化jsx的attr属性包含中文转化问题
+* 新增clear指令（用于清理已经不在使用的语言包）
 
 <a name="1.1.2"></a>
 ## [1.1.2](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.2)
