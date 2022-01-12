@@ -1,5 +1,12 @@
 ### 更新日志
 
+<a name="1.1.4"></a>
+## [1.1.4](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.4)
+
+#### 1.1.4
+
+* 新增忽略中文抓取功能
+
 <a name="1.1.3"></a>
 ## [1.1.3](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.3)
 
