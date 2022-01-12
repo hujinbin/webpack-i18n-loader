@@ -1,5 +1,12 @@
 ### 更新日志
 
+<a name="1.1.5"></a>
+## [1.1.4](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.5)
+
+#### 1.1.5
+
+* 忽略中文抓取（优化规则）
+
 <a name="1.1.4"></a>
 ## [1.1.4](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.4)
 

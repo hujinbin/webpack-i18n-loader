@@ -193,9 +193,9 @@ js内被< i18n ignore  (跳过的内容) >  包括的内容将不会进行抓取
 
 使用实例
 ```bash
-// < i18n ignore
+// < i18n-ignore
 const str = "我的世界"
-//>
+// >
 ```
 
 
