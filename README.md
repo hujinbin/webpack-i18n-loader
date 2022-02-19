@@ -50,6 +50,10 @@ yarn add webpack-in-loader --dev
 
 ### cli的使用
 
+cli可使用的所有命令
+
+#### 自动抓取中文
+
 项目根目录执行
 
 ```bash
@@ -65,6 +69,68 @@ Options:
 ```
 
 请务必记住上述的国际化资源文件的路径和文件名，loader中需要配置，若未设置采用默认，loader中也可以不用设置
+
+#### 自动翻译
+
+```bash
+npx i18n init 
+初始化翻译配置项（如已有配置项，不要重复执行，不然会覆盖）
+
+npx i18n translate [code]
+开始翻译文件 
+默认中文翻译成英文   code  默认值为en
+```
+code必须为百度翻译文档上的code值
+
+初始化项目，生成的配置文件 i18n-config.json
+```bash
+module.exports = {
+    dir: "./src/locale/", // 目标目录
+    file: 'zh.js', // 翻译的文件
+    distLangs: ['en'], // 要翻译的语言
+    open: true, // leader是否启用 默认true 打包环境下不生效
+    appId:'', // 百度翻译appid
+    secret:'', // 百度翻译密钥
+};
+```
+
+对应翻译语言代码
+
+![lang](./screenshot/lang.jpg)
+
+
+百度翻译文档：https://fanyi-api.baidu.com/product/113
+
+
+#### 人工修改翻译导入
+人工审核百度翻译错误的语言包，可直接在map映射表内修改，执行以下命令重新生成语言包
+
+```bash
+npx i18n init 
+初始化翻译配置项（如已有配置项，不要重复执行，不然会覆盖）
+
+npx i18n transform
+开始遍历所有map文件，并导入对应语言包内
+```
+
+#### 清理语言包
+```bash
+npx i18n init 
+初始化翻译配置项（如已有配置项，不要重复执行，不然会覆盖）
+
+npx i18n clear 
+清理语言包内已无效的值（使用频率：建议半年或一年以上，用于清理已无用的语言包）
+```
+
+### 跳过中文抓取
+js文件和vue文件<script></script>内被< i18n-ignore  (跳过的内容) >  包括的内容将不会进行抓取
+
+使用实例
+```bash
+// < i18n-ignore
+const str = "我的世界"
+// >
+```
 
 ### loader的使用
 
@@ -92,7 +158,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(jsx|js)?$/,
+        test: /\.(jsx|js|ts|tsx)?$/,
         include: [resolve('src')],
         use:[
           {
@@ -134,75 +200,7 @@ import i18n from '@/i18n';
 ```
 
 
-### 自动翻译
-
-```bash
-npx i18n init 
-初始化翻译配置项（如已有配置项，不要重复执行，不然会覆盖）
-
-npx i18n translate [code]
-开始翻译文件 
-默认中文翻译成英文   code  默认值为en
-```
-code必须为百度翻译文档上的code值
-
-初始化项目，生成的配置文件 i18n-config.json
-```bash
-module.exports = {
-    dir: "./src/locale/", // 目标目录
-    file: 'zh.js', // 翻译的文件
-    distLangs: ['en'], // 要翻译的语言
-    open: true, // leader是否启用 默认true 打包环境下不生效
-    appId:'', // 百度翻译appid
-    secret:'', // 百度翻译密钥
-};
-```
-
-对应翻译语言代码
-
-![lang](./screenshot/lang.jpg)
-
-
-百度翻译文档：https://fanyi-api.baidu.com/product/113
-
-
-### 人工修改翻译导入
-人工审核百度翻译错误的语言包，可直接在map映射表内修改，执行以下命令重新生成语言包
-
-```bash
-npx i18n init 
-初始化翻译配置项（如已有配置项，不要重复执行，不然会覆盖）
-
-npx i18n translate
-开始从map文件中导入生成en.js语言包
-暂时只支持en.js.map导入en.js
-```
-
-## 清理
-```bash
-npx i18n init 
-初始化翻译配置项（如已有配置项，不要重复执行，不然会覆盖）
-
-npx i18n clear 
-清理已无效的语言包（使用频率：建议半年或一年以上，用于清理已无用的语言包）
-```
-
-
-## 跳过中文抓取
-js内被< i18n-ignore  (跳过的内容) >  包括的内容将不会进行抓取
-
-使用实例
-```bash
-// < i18n-ignore
-const str = "我的世界"
-// >
-```
-
-
 ## 注意
 
-- cli命令建议在根目录直接执行 `npx i18n generate`,这样在配置loader的时候不需要额外配置，减少出错几率，如果需要自己配置参数，一定要记住，国际化资源目录一定要是单独的，否则会被loader替换的时候将资源文件也替换掉，同时在配置loader 的时候，参数值一定为目录+文件名的值（包括后缀）
-- 一定要在所有逻辑之前进行国际化配置，否则初始化 $t 方法的时候会出错，建议直接用一个单独的文件进行配置并在入口文件行首引入
 - 建议字符串的连接用模板字符串方式，这样其中涉及到的一些动态参数也会自动生成 {0} {1} 这样的参数注入
-- 项目还在完善中，欢迎大家pr
 
