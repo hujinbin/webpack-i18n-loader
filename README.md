@@ -123,13 +123,20 @@ npx i18n clear
 ```
 
 ### 跳过中文抓取
-js文件和vue文件<script></script>内被< i18n-ignore  (跳过的内容) >  包括的内容将不会进行抓取
+js文件和vue文件内被<i18n-ignore (跳过的内容) i18n-ignore>  包括的内容将不会进行抓取
 
 使用实例
+js语法
 ```bash
-// < i18n-ignore
+// <i18n-ignore
 const str = "我的世界"
-// >
+// i18n-ignore>
+```
+template内使用
+```bash
+<!-- <i18n-ignore -->
+<div>我的世界</div>
+<!-- i18n-ignore> -->
 ```
 
 ### loader的使用
