@@ -57,7 +57,10 @@ module.exports = function (source) {
   if (!messages) return source;
   let result = '';
   const fileSuffix = path.extname(this.resourcePath)
-  if (fileSuffix === '.vue') {
+  if (['.js','.jsx', '.ts','.tsx'].indexOf(fileSuffix) && this.resourcePath.indexOf(path.parse(options.localeFile).dir) < 0) {
+    //处理js文件
+    result = replaceScriptContent(source);
+  }else if (fileSuffix === '.vue') {
     //处理vue文件
     result = source.replace(/(<template[^>]*>)((.|\n)*)(<\/template>)/gim, (_, preTag, content, $3, afterTag) => {
       return `${preTag}${replaceTemplateContent(content)}${afterTag}`;
@@ -65,9 +68,6 @@ module.exports = function (source) {
     result = result.replace(/(<script[^>]*>)((.|\n)*)(<\/script>)/gim, (_, preTag, content, $3, afterTag) => {
       return `${preTag}${replaceScriptContent(content)}${afterTag}`;
     });
-  } else if (['.js','.jsx', '.ts','.tsx'].indexOf(fileSuffix) && this.resourcePath.indexOf(path.parse(options.localeFile).dir) < 0) {
-    //处理js文件
-    result = replaceScriptContent(source);
   } else {
     result = source;
   }
