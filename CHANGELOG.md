@@ -1,5 +1,13 @@
 ### 更新日志
 
+<a name="1.1.7"></a>
+## [1.1.6](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.7)
+
+#### 1.1.7
+
+* fix: 修复loader处理过程中js等文件未转换问题
+* vue文件内template内容转换优化
+
 <a name="1.1.6"></a>
 ## [1.1.6](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.6)
 
