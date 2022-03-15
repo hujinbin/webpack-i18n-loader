@@ -1,7 +1,15 @@
 ### 更新日志
 
+<a name="1.1.8"></a>
+## [1.1.8](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.8)
+
+#### 1.1.8
+
+* fix: 修复loader转换错误问题
+* loader转换忽略node_modules文件夹
+
 <a name="1.1.7"></a>
-## [1.1.6](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.7)
+## [1.1.7](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.7)
 
 #### 1.1.7
 
