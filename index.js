@@ -56,8 +56,12 @@ module.exports = function (source) {
   initMessages(options);
   if (!messages) return source;
   let result = '';
+  if(this.resourcePath.indexOf('node_modules')>-1){
+    return source
+  }
   const fileSuffix = path.extname(this.resourcePath)
-  if (['.js','.jsx', '.ts','.tsx'].indexOf(fileSuffix) && this.resourcePath.indexOf(path.parse(options.localeFile).dir) < 0) {
+  if (['.js','.jsx', '.ts','.tsx'].includes(fileSuffix)
+  && this.resourcePath.indexOf(path.parse(options.localeFile).dir) < 0) {
     //处理js文件
     result = replaceScriptContent(source);
   }else if (fileSuffix === '.vue') {
