@@ -1,5 +1,12 @@
 ### 更新日志
 
+<a name="1.1.9"></a>
+## [1.1.9](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.9)
+
+#### 1.1.9
+
+* fix: 修复使用忽略功能后webpack进程卡住问题
+
 <a name="1.1.8"></a>
 ## [1.1.8](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.8)
 
