@@ -30,10 +30,11 @@ commander.command('init')
   init();
 })
 
-commander.command('translate [code]]')
+commander.command('translate [code]')
 .description('开始启用自动翻译')
-.action((code = 'en')=>{
-  translate(code);
+.option('-f, --file <filename>', '选择翻译的文件')
+.action((code = 'en', { file } )=>{
+  translate(code, file);
 })
 
 commander.command('transform')
