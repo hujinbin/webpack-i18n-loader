@@ -1,5 +1,12 @@
 ### 更新日志
 
+<a name="1.2.0"></a>
+## [1.2.0](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.2.0)
+
+#### 1.2.0
+
+* 翻译功能支持选择定向文件翻译
+
 <a name="1.1.9"></a>
 ## [1.1.9](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.1.9)
 

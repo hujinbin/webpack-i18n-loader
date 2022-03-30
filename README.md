@@ -55,12 +55,17 @@ cli可使用的所有命令
 #### 自动抓取中文
 
 项目根目录执行
+```bash
+npx i18n generate [src]
+对src目录下的vue/js/ts/tsx/jsx文件进行中文提取并生成国际化资源文件
+默认src目录   src  默认值为src
+```
 
 ```bash
 npx i18n generate -h
-Usage: i18n generate [options] [src]
+Usage: i18n generate [src]
 
-对src目录下的vue/js文件进行中文提取并生成国际化资源文件，默认src为执行目录下的src目录
+对src目录下的vue/js/ts/tsx/jsx文件进行中文提取并生成国际化资源文件，默认src为执行目录下的src目录
 
 Options:
   -p, --filepath <filepath>  设置国际化文件的路径，默认为执行目录下的src/locale目录，请务必设置一个单独的目录来放置国际化资源文件
@@ -79,8 +84,12 @@ npx i18n init
 npx i18n translate [code]
 开始翻译文件 
 默认中文翻译成英文   code  默认值为en
+
+Options:
+  -f, --file <filename>,  选择翻译的文件，默认选取目录下的src/locale目录下的文件
 ```
 code必须为百度翻译文档上的code值
+
 
 初始化项目，生成的配置文件 i18n-config.json
 ```bash
@@ -112,6 +121,7 @@ npx i18n init
 npx i18n transform
 开始遍历所有map文件，并导入对应语言包内
 ```
+
 
 #### 清理语言包
 ```bash
