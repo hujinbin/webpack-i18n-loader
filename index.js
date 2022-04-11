@@ -55,6 +55,16 @@ module.exports = function (source) {
   }, options);
   initMessages(options);
   if (!messages) return source;
+  // 获取vue版本号
+  const packageFile = path.join(process.cwd(), 'package.json');
+  let package = {};
+    // 获取当前项目的package.json信息
+  if (fs.existsSync(packageFile)) {
+      package = require(packageFile);
+  }
+  console.log(package)
+  // 版本和项目名
+  // const {version, name} = package
   let result = '';
   if(this.resourcePath.indexOf('node_modules')>-1){
     return source
