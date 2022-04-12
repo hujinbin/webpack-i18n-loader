@@ -2,11 +2,19 @@ const loaderUtils = require('loader-utils');
 const path = require('path');
 const fs = require('fs');
 const FileProcess = require('./lib/fileProcess');
-let messages = null;
+const fileVue3 = require('./lib/fileVue3');
+let messages = null; // 语言包对象
+let vue = 0 //vue版本 0为未获取到，默认2版本
 const replaceTemplateContent = (content) => {
+  if(Number(vue) === 3){
+    return fileVue3.generateTemplate(messages, content, true);
+  }
   return FileProcess.generateTemplate(messages, content, true);
 };
 const replaceScriptContent = (content) => {
+  if(Number(vue) === 3){
+    return fileVue3.generateScript(messages, content, true);
+  }
   return FileProcess.generateScript(messages, content, true);
 };
 const initMessages = ({
@@ -34,6 +42,23 @@ const {
 } = require('./lib/const');
 let config = {}
 let state = false // 读取配置状态 确保项目启动只读取一次
+
+// 获取当前项目的vue版本
+const getVueVersion = () => {
+  // 获取vue版本号
+   const packageFile = path.join(process.cwd(), 'package.json');
+   let package = {};
+    // 获取当前项目的package.json信息
+   if (fs.existsSync(packageFile)) {
+      package = require(packageFile);
+  }
+  // 获取当前vue版本，默认 2
+  const vueVersion = package.dependencies.vue;
+  const firstVersion  = vueVersion.split('.')[0];
+  const vueArr = String(firstVersion).match(/\d+/g);
+  vue = vueArr.join('')
+}
+
 module.exports = function (source) {
   if(state === false){
     if (fs.existsSync(config_file)) {
@@ -55,16 +80,11 @@ module.exports = function (source) {
   }, options);
   initMessages(options);
   if (!messages) return source;
-  // 获取vue版本号
-  const packageFile = path.join(process.cwd(), 'package.json');
-  let package = {};
-    // 获取当前项目的package.json信息
-  if (fs.existsSync(packageFile)) {
-      package = require(packageFile);
+
+  if(vue === 0){ // 只执行一次
+    getVueVersion();
   }
-  console.log(package)
-  // 版本和项目名
-  // const {version, name} = package
+ 
   let result = '';
   if(this.resourcePath.indexOf('node_modules')>-1){
     return source
