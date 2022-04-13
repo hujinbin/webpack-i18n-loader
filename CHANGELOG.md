@@ -1,5 +1,12 @@
 ### 更新日志
 
+<a name="1.3.0"></a>
+## [1.3.0](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.3.0)
+
+#### 1.3.0
+
+* 兼容vue3版本的使用
+
 <a name="1.2.0"></a>
 ## [1.2.0](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.2.0)
 

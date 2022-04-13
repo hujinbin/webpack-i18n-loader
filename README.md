@@ -1,4 +1,5 @@
 # webpack-in-loader
+一键式实现项目的国际化 语言包 处理的过程，vue2和vue3版本版本的loader
 
 ---
 
@@ -201,15 +202,38 @@ module.exports = {
 国际化的配置一定一定要在所有逻辑之前，建议采用 i18n.js 文件单独配置，然后在入口文件最先引入这个文件即可！
 要确保（'@/i18n'）这个路径可以取到i18n对象
 
+vue2版本 
 ```javascript
 //i18n.js 国际化配置文件
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 Vue.use(VueI18n);
-Vue.config.lang = 'zh';
-Vue.locale('zh', {
-  ...require('./locale/zh'),
+const i18n = new VueI18n({
+    locale: 'zh',
+    messages:{
+      'zh': ...require('./locale/zh'),
+    },
 });
+export default i18n;
+
+//main.js 入口文件
+import i18n from '@/i18n';
+
+```
+
+vue3版本 
+```javascript
+//i18n.js 国际化配置文件
+import { createI18n } from "vue-i18n";
+
+const i18n = createI18n({
+    locale: "zh", //默认显示的语言
+    messages:{
+      'zh': ...require('./locale/zh'),
+    },
+});
+
+export default i18n;
 
 //main.js 入口文件
 import i18n from '@/i18n';
