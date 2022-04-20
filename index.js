@@ -53,10 +53,14 @@ const getVueVersion = () => {
       package = require(packageFile);
   }
   // 获取当前vue版本，默认 2
-  const vueVersion = package.dependencies.vue;
-  const firstVersion  = vueVersion.split('.')[0];
-  const vueArr = String(firstVersion).match(/\d+/g);
-  vue = vueArr.join('')
+  const vueVersion = package.dependencies.vue || package.devDependencies.vue;
+  try{
+    const firstVersion = String(vueVersion).split('.')[0];
+    const vueArr = String(firstVersion).match(/\d+/g);
+    vue = vueArr.join('')
+  }catch(e){
+    vue = 2;
+  }
 }
 
 module.exports = function (source) {
