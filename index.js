@@ -52,12 +52,16 @@ const getVueVersion = () => {
    if (fs.existsSync(packageFile)) {
       package = require(packageFile);
   }
+  console.log("/n ===============")
   // 获取当前vue版本，默认 2
   const vueVersion = package.dependencies.vue || package.devDependencies.vue;
+  console.log(vueVersion)
   try{
     const firstVersion = String(vueVersion).split('.')[0];
     const vueArr = String(firstVersion).match(/\d+/g);
     vue = vueArr.join('')
+    console.log("vue================")
+    console.log(vue)
   }catch(e){
     vue = 2;
   }
