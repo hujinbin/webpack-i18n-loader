@@ -1,5 +1,13 @@
 ### 更新日志
 
+<a name="1.3.3"></a>
+## [1.3.3](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.3.1)
+
+#### 1.3.3
+
+* 支持distLangs参数的多语种同时翻译
+* 优化语言抓取丢失空格的问题
+
 <a name="1.3.1"></a>
 ## [1.3.1](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.3.1)
 
