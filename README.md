@@ -101,6 +101,7 @@ module.exports = {
     open: true, // leader是否启用 默认true 打包环境下不生效
     appId:'', // 百度翻译appid
     secret:'', // 百度翻译密钥
+    singleNum: 3000, //单次请求最长次数 可配置范围（3900 - 600）不填则为默认值 1500
 };
 ```
 
