@@ -1,7 +1,15 @@
 ### 更新日志
 
+<a name="1.3.4"></a>
+## [1.3.4](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.3.4)
+
+#### 1.3.4
+
+* 修复window系统vue文件因换行符导致的不兼容问题
+* 新增自动翻译单次请求的限制配置项
+
 <a name="1.3.3"></a>
-## [1.3.3](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.3.1)
+## [1.3.3](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.3.3)
 
 #### 1.3.3
 

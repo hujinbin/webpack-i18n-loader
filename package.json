@@ -1,6 +1,6 @@
 {
   "name": "webpack-in-loader",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "webpack-in-loader 一键式实现项目的国际化 语言包 处理的过程",
   "main": "index.js",
   "bin": {
