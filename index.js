@@ -104,10 +104,10 @@ module.exports = function (source) {
     result = replaceScriptContent(source);
   }else if (fileSuffix === '.vue') {
     //处理vue文件
-    result = source.replace(/(<template[^>]*>)((.|\n)*)(<\/template>)/gim, (_, preTag, content, $3, afterTag) => {
+    result = source.replace(/(<template[^>]*>)((.|\n|\r)*)(<\/template>)/gim, (_, preTag, content, $3, afterTag) => {
       return `${preTag}${replaceTemplateContent(content)}${afterTag}`;
     });
-    result = result.replace(/(<script[^>]*>)((.|\n)*)(<\/script>)/gim, (_, preTag, content, $3, afterTag) => {
+    result = result.replace(/(<script[^>]*>)((.|\n|\r)*)(<\/script>)/gim, (_, preTag, content, $3, afterTag) => {
       return `${preTag}${replaceScriptContent(content)}${afterTag}`;
     });
   } else {
