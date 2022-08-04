@@ -1,5 +1,12 @@
 ### 更新日志
 
+<a name="1.3.5"></a>
+## [1.3.5](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.3.5)
+
+#### 1.3.5
+
+* 修复window系统vue文件因换行符国际化未转化问题
+
 <a name="1.3.4"></a>
 ## [1.3.4](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.3.4)
 
