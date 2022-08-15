@@ -2,20 +2,13 @@ const loaderUtils = require('loader-utils');
 const path = require('path');
 const fs = require('fs');
 const FileProcess = require('./lib/fileProcess');
-const fileVue3 = require('./lib/fileVue3');
 let messages = null; // 语言包对象
 let vue = 0 //vue版本 0为未获取到，默认2版本
 const replaceTemplateContent = (content) => {
-  if(Number(vue) === 3){
-    return fileVue3.generateTemplate(messages, content, true);
-  }
   return FileProcess.generateTemplate(messages, content, true);
 };
 const replaceScriptContent = (content) => {
-  if(Number(vue) === 3){
-    return fileVue3.generateScript(messages, content, true);
-  }
-  return FileProcess.generateScript(messages, content, true);
+  return FileProcess.generateScript(messages, content, true, Number(vue));
 };
 const initMessages = ({
   localeFile
