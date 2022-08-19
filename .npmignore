@@ -11,3 +11,5 @@ test/
 index.html
 package-lock.json
 update.md
+CHANGELOG.md
+examples/

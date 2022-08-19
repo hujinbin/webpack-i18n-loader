@@ -7,6 +7,8 @@
     "i18n": "bin/i18n.js"
   },
   "scripts": {
+    "example": "cd ./examples/vue2 && npm run dev",
+    "example:vue3": "",
     "test": "jest",
     "coverage": "jest --coverage"
   },
