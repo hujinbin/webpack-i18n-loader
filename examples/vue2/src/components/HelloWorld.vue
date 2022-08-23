@@ -80,6 +80,7 @@
         </a>
       </li>
     </ul>
+    <div>显示操作面板</div>
   </div>
 </template>
 
@@ -90,6 +91,16 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
+      addToGraphMethod: 'add', // 上图方式 'add' | 'cover'
+      isShowTagsGraphBoard: false, // 显示操作面板
+      isTabShow: false,
+      tagList: [],
+      selectedTimelineSchemaName: '', // 图谱演进 选择的schema类型英文名称
+      isChangedTagStatus: false,
+      advanceFilterRuleMode: '', // 高级筛选规则模式（'disappear,hide,aggregation）
+      graphCollisionPath: [],
+      certsOnePersonList: [],
+      toAddEdges: [],
     }
   },
   mounted(){
