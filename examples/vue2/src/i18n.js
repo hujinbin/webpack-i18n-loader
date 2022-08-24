@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import zh from './locale/zh';
-import en from './locale/en';
+// import en from './locale/en';
 
 Vue.use(VueI18n);
 
 const messages = {
-    en,
+    // en,
     zh,
 };
 
