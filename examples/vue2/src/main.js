@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import i18n from './i18n';
+// 在主应用中
+console.log("测试是否报错")
 
 Vue.config.productionTip = false
 
