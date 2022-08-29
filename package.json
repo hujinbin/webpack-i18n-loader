@@ -7,6 +7,10 @@
     "i18n": "bin/i18n.js"
   },
   "scripts": {
+    "install:ex": "cd examples/vue2 && npm install",
+    "install:vue3": "cd examples/vue3 && npm install",
+    "example": "cd examples/vue2 && npm run dev",
+    "example:vue3": "cd examples/vue3 && npm run dev",
     "test": "jest",
     "coverage": "jest --coverage"
   },
