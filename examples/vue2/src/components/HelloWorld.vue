@@ -81,6 +81,8 @@
       </li>
     </ul>
     <div>显示操作面板</div>
+
+    <input placeholder="可点击圆圈内的 '且' '或' 进行逻辑切换">
   </div>
 </template>
 
@@ -104,6 +106,8 @@ export default {
     }
   },
   mounted(){
+    let tabs =[]
+    tabs.push({key:'detail',name:`详情${num ? `(${num})`:''}`})
   },
 }
 </script>
