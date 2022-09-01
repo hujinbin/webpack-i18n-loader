@@ -3,6 +3,9 @@
 
 ---
 
+
+## 概览
+
 vue-i18n版本的wepback loader，给出一个简单的demo。
 
 *HTML*
@@ -245,4 +248,8 @@ import i18n from '@/i18n';
 ## 注意
 
 - 建议字符串的连接用模板字符串方式，这样其中涉及到的一些动态参数也会自动生成 {0} {1} 这样的参数注入
+
+
+## 变更日志
+每个版本的详细更改都记录在[版本说明](https://github.com/hujinbin/webpack-i18n-loader/blob/master/CHANGELOG.md)中。
 

@@ -1,5 +1,14 @@
 ### 更新日志
 
+<a name="1.3.7"></a>
+## [1.3.7](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.3.7)
+
+#### 1.3.7
+
+* 代码优化，缩减npm的大小
+* 修复main.js内包含中文报错问题
+
+
 <a name="1.3.6"></a>
 ## [1.3.6](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.3.6)
 
