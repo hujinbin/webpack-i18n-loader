@@ -1,9 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 const FileProcess = require(`${process.cwd()}/lib/fileProcess`);
-const processSource = require(`${process.cwd()}/lib/processSource`)
-const generateI18nData = require(`${process.cwd()}/lib/generate`)
-const { setDefaultData, isInclude, isExclude } = require(`${process.cwd()}/lib/utils`)
+// const processSource = require(`${process.cwd()}/lib/processSource`)
+// const generateI18nData = require(`${process.cwd()}/lib/generate`)
+// const { setDefaultData, isInclude, isExclude } = require(`${process.cwd()}/lib/utils`)
 const done = [] // 用于标记文件处理情况
 let id = -1
 let config, exclude, include
@@ -63,18 +63,18 @@ function readFile(fileName, curID, resolve) {
     done[curID] = false
     fs.readFile(fileName, 'utf-8', (err, source) => {
         if (err) throw err
-        processSource(source).then(data => {
-            fs.writeFile(fileName, data, 'utf-8', err => {
-                if (err) throw err
-                done[curID] = true
-                // 处理完最后一个文件后，生成 i18n 数据
-                if (!done.includes(false)) {
-                    generateI18nData().then(() => {
-                        resolve()
-                    })
-                }
-            })
-        })
+        // processSource(source).then(data => {
+        //     fs.writeFile(fileName, data, 'utf-8', err => {
+        //         if (err) throw err
+        //         done[curID] = true
+        //         // 处理完最后一个文件后，生成 i18n 数据
+        //         if (!done.includes(false)) {
+        //             generateI18nData().then(() => {
+        //                 resolve()
+        //             })
+        //         }
+        //     })
+        // })
     })
 }
 
@@ -84,15 +84,15 @@ module.exports = function replace(i18nConfig) {
         exclude = i18nConfig.exclude || []
         include = i18nConfig.include
 
-        setDefaultData(config).then(() => {
-            const entry = path.resolve(process.cwd(), config.entry? config.entry: 'src')
-            if (fs.lstatSync(entry).isDirectory()) {
-                readDir(entry, false, resolve)
-            } else if (/(\.vue)|(\.js)$/.test(entry) || (config.extra && config.extra.test(entry))) {
-                readFile(entry, ++id, resolve)
-            } else {
-                resolve()
-            }
-        })
+        // setDefaultData(config).then(() => {
+        //     const entry = path.resolve(process.cwd(), config.entry? config.entry: 'src')
+        //     if (fs.lstatSync(entry).isDirectory()) {
+        //         readDir(entry, false, resolve)
+        //     } else if (/(\.vue)|(\.js)$/.test(entry) || (config.extra && config.extra.test(entry))) {
+        //         readFile(entry, ++id, resolve)
+        //     } else {
+        //         resolve()
+        //     }
+        // })
     })
 }
