@@ -1,4 +1,12 @@
 ### 更新日志
+<a name="1.3.10"></a>
+## [1.3.10](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.3.10)
+
+#### 1.3.10
+
+* 优化js文件的单行注释过滤规则
+* 插件依赖问题
+
 
 <a name="1.3.8"></a>
 ## [1.3.8](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.3.8)
