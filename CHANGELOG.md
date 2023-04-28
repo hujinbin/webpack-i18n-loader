@@ -1,4 +1,13 @@
 ### 更新日志
+<a name="1.4.0"></a>
+## [1.4.0](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.4.0)
+
+#### 1.4.0
+
+* 自动翻译接入ChatGpt方式,新增翻译进度展示
+* 优化配置项初始化
+
+
 <a name="1.3.10"></a>
 ## [1.3.10](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.3.10)
 
