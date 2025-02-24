@@ -18,20 +18,20 @@ const count = ref(0)
   </div>
 
   <p>
-    Check out
+    看看
     <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
       >create-vue</a
-    >, the official Vue + Vite starter
+    >, 官方Vue + Vite启动器
   </p>
   <p>
-    Learn more about IDE Support for Vue in the
+    中了解更多关于IDE对Vue的支持
     <a
       href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support"
       target="_blank"
-      >Vue Docs Scaling up Guide</a
+      >Vue文档扩展指南</a
     >.
   </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+  <p class="read-the-docs">点击Vite和Vue徽标了解更多信息</p>
 </template>
 
 <style scoped>

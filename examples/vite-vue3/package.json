@@ -6,16 +6,22 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "i18n": "npx i18n generate",
+    "t": "npx i18n translate",
+    "map": "npx i18n transform"
   },
   "dependencies": {
-    "vue": "^3.5.13"
+    "vue": "^3.5.13",
+    "vue-i18n": "^11.1.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",
     "typescript": "~5.7.2",
     "vite": "^6.1.0",
-    "vue-tsc": "^2.2.0"
+    "vite-plugin-commonjs": "^0.10.4",
+    "vue-tsc": "^2.2.0",
+    "webpack-in-loader": "^1.4.0"
   }
 }
