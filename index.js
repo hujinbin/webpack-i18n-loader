@@ -18,7 +18,7 @@ const initMessages = ({
     messages = require(localeFile);
     //文件变化监听
     const isProduction = process.env.NODE_ENV === 'production'
-    if (!isProduction) {
+    if(!isProduction){
       fs.watchFile(localeFile, {
         interval: 1000
       }, _ => {
@@ -39,43 +39,40 @@ let state = false // 读取配置状态 确保项目启动只读取一次
 // 获取当前项目的vue版本
 const getVueVersion = () => {
   // 获取vue版本号
-  const packageFile = path.join(process.cwd(), 'package.json');
-  let package = {};
-  // 获取当前项目的package.json信息
-  if (fs.existsSync(packageFile)) {
-    package = require(packageFile);
+   const packageFile = path.join(process.cwd(), 'package.json');
+   let package = {};
+    // 获取当前项目的package.json信息
+   if (fs.existsSync(packageFile)) {
+      package = require(packageFile);
   }
   console.log("/n ===============")
   // 获取当前vue版本，默认 2
   const vueVersion = package.dependencies.vue || package.devDependencies.vue;
   console.log(vueVersion)
-  try {
+  try{
     const firstVersion = String(vueVersion).split('.')[0];
     const vueArr = String(firstVersion).match(/\d+/g);
     vue = vueArr.join('')
     console.log("vue================")
     console.log(vue)
-  } catch (e) {
+  }catch(e){
     vue = 2;
   }
 }
 
-async function loadConfigFile(configFilePath) {
-  if (fs.existsSync(configFilePath)) {
-    const configModule = await import(configFilePath);
-    return configModule.default || configModule;
-  }
-  return {};
-}
-
 async function webpackLoader(source) {
-  if (state === false) {
-    const configFilePath = path.join(process.cwd(), 'i18n-config.js');
-    config = await loadConfigFile(configFilePath);
+  if(state === false){
+    if (fs.existsSync(config_file)) {
+      const processFile = path.join(process.cwd(), config_file);
+      config = require(processFile);
+    } 
+    // else {
+    //   return source
+    // }
   }
-  state = true;
+  state = true
   // 不在打包环境下生效
-  if (config.open === false && process.env.NODE_ENV !== 'production') {
+  if(config.open === false && process.env.NODE_ENV !== 'production'){
     return source
   }
   let options = loaderUtils.getOptions(this);
@@ -85,20 +82,20 @@ async function webpackLoader(source) {
   initMessages(options);
   if (!messages) return source;
 
-  if (vue === 0) { // 只执行一次
+  if(vue === 0){ // 只执行一次
     getVueVersion();
   }
-
+ 
   let result = '';
-  if (this.resourcePath.indexOf('node_modules') > -1) {
+  if(this.resourcePath.indexOf('node_modules')>-1){
     return source
   }
   const fileSuffix = path.extname(this.resourcePath)
-  if (['.js', '.jsx', '.ts', '.tsx'].includes(fileSuffix)
-    && this.resourcePath.indexOf(path.parse(options.localeFile).dir) < 0) {
+  if (['.js','.jsx', '.ts','.tsx'].includes(fileSuffix)
+  && this.resourcePath.indexOf(path.parse(options.localeFile).dir) < 0) {
     //处理js文件
     result = replaceScriptContent(source);
-  } else if (fileSuffix === '.vue') {
+  }else if (fileSuffix === '.vue') {
     //处理vue文件
     result = source.replace(/(<template[^>]*>)((.|\n|\r)*)(<\/template>)/gim, (_, preTag, content, $3, afterTag) => {
       return `${preTag}${replaceTemplateContent(content)}${afterTag}`;
@@ -111,6 +108,16 @@ async function webpackLoader(source) {
   }
   return result;
 };
+
+
+async function loadConfigFile(configFilePath) {
+  if (fs.existsSync(configFilePath)) {
+    const configModule = await import(configFilePath);
+    return configModule.default || configModule;
+  }
+  return {};
+}
+
 
 // vite插件
 function i18nPlugin() {
