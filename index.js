@@ -177,28 +177,22 @@ function vitePluginI18n() {
           map: null,
         }
       }
-      // console.log(id)
-      console.log("messages======")
-      console.log(messages)
       const fileSuffix = path.extname(id);
       const relativePath = path.relative(path.parse(localeFile).dir, id);
       if (!relativePath.startsWith('..')
         && !path.isAbsolute(relativePath)) {
-        console.log("id=========================================")
-        console.log(id)
         return {
           code: code,
           map: null,
         }
       }
       console.log("relativePath======")
-      console.log(id)
-
-      if (['.js', '.jsx', '.ts', '.tsx'].includes(fileSuffix)
-
-      ) {
-        console.log(!relativePath.startsWith('..'))
-        console.log(!path.isAbsolute(relativePath))
+      console.log(fileSuffix)
+      // if(id.indexOf('App.vue') > -1 || id.indexOf('HelloWorld.vue') > -1) {
+      //   console.log(id)
+      //   console.log(code)
+      // }
+      if (['.js', '.jsx', '.ts', '.tsx'].includes(fileSuffix)) {
         // 处理 js 文件
         result = replaceScriptContent(code);
       } else if (fileSuffix === '.vue') {
@@ -212,7 +206,8 @@ function vitePluginI18n() {
       } else {
         result = code;
       }
-      // console.log(result)
+      console.log("result================")
+      console.log(result)
       return {
         code: result,
         map: null,
