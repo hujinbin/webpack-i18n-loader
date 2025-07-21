@@ -186,17 +186,22 @@ function vitePluginI18n() {
           map: null,
         }
       }
-      console.log("relativePath======")
-      console.log(fileSuffix)
-      // if(id.indexOf('App.vue') > -1 || id.indexOf('HelloWorld.vue') > -1) {
-      //   console.log(id)
-      //   console.log(code)
+      // console.log("relativePath======")
+      // console.log(fileSuffix)
+      // if(id.indexOf('App.vue') === -1 && id.indexOf('HelloWorld.vue') === -1) {
+      //    return {
+      //     code: code,
+      //     map: null,
+      //   }
       // }
+
       if (['.js', '.jsx', '.ts', '.tsx'].includes(fileSuffix)) {
         // 处理 js 文件
         result = replaceScriptContent(code);
       } else if (fileSuffix === '.vue') {
         // 处理 vue 文件
+        // console.log("relativePath======")
+        // console.log(fileSuffix)
         result = code.replace(/(<template[^>]*>)((.|\n|\r)*)(<\/template>)/gim, (_, preTag, content, $3, afterTag) => {
           return `${preTag}${replaceTemplateContent(content)}${afterTag}`;
         });
@@ -206,8 +211,8 @@ function vitePluginI18n() {
       } else {
         result = code;
       }
-      console.log("result================")
-      console.log(result)
+      // console.log("result================")
+      // console.log(result)
       return {
         code: result,
         map: null,

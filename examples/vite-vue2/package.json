@@ -1,0 +1,27 @@
+{
+  "name": "vite-vue2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "i18n": "npx i18n generate",
+    "t": "npx i18n translate",
+    "map": "npx i18n transform"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^2.7.14",
+    "vue-i18n": "^8.28.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue2": "^2.3.3",
+    "vite": "^7.0.5",
+    "vite-plugin-commonjs": "^0.10.4",
+    "webpack-in-loader": "^1.4.0"
+  }
+}
