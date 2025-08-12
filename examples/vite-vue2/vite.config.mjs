@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue2';
 import commonjs from 'vite-plugin-commonjs'
-import { vitePluginI18n } from 'webpack-in-loader';
+import { vitePluginI18n } from '../../index.js';
+
 
 export default defineConfig({
   plugins: [vue(), vitePluginI18n(), commonjs()],

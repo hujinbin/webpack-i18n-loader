@@ -145,77 +145,92 @@ function vitePluginI18n() {
       }
     },
     async transform(code, id) {
-      // 不在打包环境下生效
-      if (config.open === false && process.env.NODE_ENV !== 'production') {
-        return {
-          code: code,
-          map: null,
+      try {
+        // 不在打包环境下生效
+        if (config.open === false && process.env.NODE_ENV !== 'production') {
+          return {
+            code: code,
+            map: null,
+          }
         }
-      }
-      const dir = config.dir;
-      const file = config.file;
-      let localeFile = path.join(process.cwd(), 'src/locale/zh.js')
-      if (dir && file) {
-        localeFile = path.join(process.cwd(), dir + file);
-      }
+        
+        // 跳过 node_modules 文件
+        if (id.indexOf('node_modules') > -1) {
+          return {
+            code: code,
+            map: null,
+          }
+        }
+        
+        // 获取语言包文件路径
+        const dir = config.dir;
+        const file = config.file;
+        let localeFile = path.join(process.cwd(), 'src/locale/zh.js')
+        if (dir && file) {
+          localeFile = path.join(process.cwd(), dir + file);
+        }
 
-      initViteMessages(localeFile);
-      if (!messages) {
-        return {
-          code: code,
-          map: null,
+        // 初始化语言包
+        initViteMessages(localeFile);
+        if (!messages) {
+          return {
+            code: code,
+            map: null,
+          }
         }
-      }
-      if (vue === 0) { // 只执行一次
-        getVueVersion();
-      }
+        
+        // 获取Vue版本
+        if (vue === 0) {
+          getVueVersion();
+        }
 
-      let result = '';
-      if (id.indexOf('node_modules') > -1) {
-        return {
-          code: code,
-          map: null,
+        // 检查文件是否在语言包目录内，如果是则跳过处理
+        const relativePath = path.relative(path.parse(localeFile).dir, id);
+        if (!relativePath.startsWith('..')
+          && !path.isAbsolute(relativePath)) {
+          return {
+            code: code,
+            map: null,
+          }
         }
-      }
-      const fileSuffix = path.extname(id);
-      const relativePath = path.relative(path.parse(localeFile).dir, id);
-      if (!relativePath.startsWith('..')
-        && !path.isAbsolute(relativePath)) {
-        return {
-          code: code,
-          map: null,
-        }
-      }
-      // console.log("relativePath======")
-      // console.log(fileSuffix)
-      // if(id.indexOf('App.vue') === -1 && id.indexOf('HelloWorld.vue') === -1) {
-      //    return {
-      //     code: code,
-      //     map: null,
-      //   }
-      // }
+        
+        const fileSuffix = path.extname(id);
+        let result = '';
 
-      if (['.js', '.jsx', '.ts', '.tsx'].includes(fileSuffix)) {
-        // 处理 js 文件
-        result = replaceScriptContent(code);
-      } else if (fileSuffix === '.vue') {
-        // 处理 vue 文件
-        // console.log("relativePath======")
-        // console.log(fileSuffix)
-        result = code.replace(/(<template[^>]*>)((.|\n|\r)*)(<\/template>)/gim, (_, preTag, content, $3, afterTag) => {
-          return `${preTag}${replaceTemplateContent(content)}${afterTag}`;
-        });
-        result = result.replace(/(<script[^>]*>)((.|\n|\r)*)(<\/script>)/gim, (_, preTag, content, $3, afterTag) => {
-          return `${preTag}${replaceScriptContent(content)}${afterTag}`;
-        });
-      } else {
-        result = code;
-      }
-      // console.log("result================")
-      // console.log(result)
-      return {
-        code: result,
-        map: null,
+        if (['.js', '.jsx', '.ts', '.tsx'].includes(fileSuffix)) {
+          // 处理 JavaScript/TypeScript 文件
+          result = replaceScriptContent(code);
+        } else if (fileSuffix === '.vue') {
+          // 处理 Vue 单文件组件
+          result = code;
+          
+          // 处理 template 部分
+          result = result.replace(/(<template[^>]*>)((.|\n|\r)*)(<\/template>)/gim, (_, preTag, content, $3, afterTag) => {
+            const transformedContent = replaceTemplateContent(content);
+            return `${preTag}${transformedContent}${afterTag}`;
+          });
+          
+          // 处理 script 部分
+          result = result.replace(/(<script[^>]*>)((.|\n|\r)*)(<\/script>)/gim, (_, preTag, content, $3, afterTag) => {
+            const transformedContent = replaceScriptContent(content);
+            return `${preTag}${transformedContent}${afterTag}`;
+          });
+        } else {
+          // 其他文件类型不处理
+          result = code;
+        }
+        
+        return {
+          code: result,
+          map: null,
+        }
+      } catch (error) {
+        // 错误处理，返回原始代码
+        console.error('Vite i18n transform error:', error);
+        return {
+          code: code,
+          map: null,
+        }
       }
     }
   }
