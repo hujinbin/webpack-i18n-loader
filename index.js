@@ -40,14 +40,14 @@ let state = false // 读取配置状态 确保项目启动只读取一次
 const getVueVersion = () => {
   // 获取vue版本号
   const packageFile = path.join(process.cwd(), 'package.json');
-  let package = {};
+  let packageInfo = {};
   // 获取当前项目的package.json信息
   if (fs.existsSync(packageFile)) {
-    package = require(packageFile);
+    packageInfo = require(packageFile);
   }
   console.log("/n ===============")
   // 获取当前vue版本，默认 2
-  const vueVersion = package.dependencies.vue || package.devDependencies.vue;
+  const vueVersion = packageInfo.dependencies?.vue || packageInfo.devDependencies?.vue;
   console.log(vueVersion)
   try {
     const firstVersion = String(vueVersion).split('.')[0];
