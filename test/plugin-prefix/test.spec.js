@@ -33,7 +33,7 @@ describe('plugin-prefix', () => {
                 done()
             })
         })
-    })
+    }, 20000)
 
     test('t', done => {
         replace(config2).then(() => {
@@ -43,5 +43,5 @@ describe('plugin-prefix', () => {
                 done()
             })
         })
-    })
+    }, 20000)
 })

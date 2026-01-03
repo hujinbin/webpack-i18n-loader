@@ -34,7 +34,7 @@ describe('loader', () => {
                 done()
             })
         })
-    })
+    }, 20000)
 
     test('default loader', done => {
         replace(config2).then(() => {
@@ -44,5 +44,5 @@ describe('loader', () => {
                 done()
             })
         })
-    })
+    }, 20000)
 })

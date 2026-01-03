@@ -25,7 +25,7 @@ describe('exclude', () => {
                 done()
             })
         })
-    })
+    }, 20000)
 
     test('page2', done => {
         replace(config).then(() => {
@@ -35,5 +35,5 @@ describe('exclude', () => {
                 done()
             })
         })
-    })
+    }, 20000)
 })

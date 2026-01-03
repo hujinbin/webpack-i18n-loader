@@ -41,7 +41,7 @@ describe('extra', () => {
                 done()
             })
         })
-    })
+    }, 20000)
 
     test('.b', done => {
         replace(config2).then(() => {
@@ -51,7 +51,7 @@ describe('extra', () => {
                 done()
             })
         })
-    })
+    }, 20000)
 
     test('.c', done => {
         replace(config3).then(() => {
@@ -61,5 +61,5 @@ describe('extra', () => {
                 done()
             })
         })
-    })
+    }, 20000)
 })

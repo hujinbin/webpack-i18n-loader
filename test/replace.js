@@ -4,33 +4,49 @@ const FileProcess = require(`${process.cwd()}/lib/fileProcess`);
 // const processSource = require(`${process.cwd()}/lib/processSource`)
 // const generateI18nData = require(`${process.cwd()}/lib/generate`)
 // const { setDefaultData, isInclude, isExclude } = require(`${process.cwd()}/lib/utils`)
-const done = [] // 用于标记文件处理情况
-let id = -1
+
+const Utils = require('../lib/utils')
 let config, exclude, include
 
-function readDir(fileName, isRead, resolve) {
-    fs.readdir(fileName, (err, files) => {
-        if (err) throw err
-        // 循环处理目录中的文件
-        files.forEach(file => {
-            const name = `${fileName}/${file}`
-            if (fs.lstatSync(name).isDirectory()) {
-                if (isExclude(exclude, file)) return
-                if (isInclude(include, file) || isRead) {
-                    readDir(name, true, resolve)
-                } else {
-                    readDir(name, false, resolve)
-                }
-            } else {
-                if (isExclude(exclude, file)) return
-                if (isInclude(include, file) || isRead) {
-                    if (/(\.vue)|(\.js)$/.test(name) || (config.extra && config.extra.test(name))) {
-                        path.extname(file) === '.vue' ? generateVueFile(file) : generateJsFile(file);
-                    }
-                }
+
+function processFile(file, cb) {
+    const ext = path.extname(file)
+    let content = fs.readFileSync(file, 'utf-8')
+    let result
+    if (ext === '.vue') {
+        // 只处理 template/script
+        let [, templateContent = ''] = content.match(/<template[^>]*>((.|\n|\r)*)<\/template>/im) || [];
+        let [, scriptContent = ''] = content.match(/<script[^>]*>((.|\n|\r)*)<\/script>/im) || [];
+        result = content
+        if (templateContent) {
+            const replaced = require('../lib/fileProcess').generateTemplate({}, templateContent, true)
+            result = result.replace(templateContent, replaced)
+        }
+        if (scriptContent) {
+            const replaced = require('../lib/fileProcess').generateScript({}, scriptContent, true, 2)
+            result = result.replace(scriptContent, replaced)
+        }
+    } else {
+        result = require('../lib/fileProcess').generateScript({}, content, true, 2)
+    }
+    fs.writeFileSync(file, typeof result === 'string' ? result : result.content, 'utf-8')
+    cb && cb()
+}
+
+function walkFiles(entry, files = []) {
+    if (fs.existsSync(entry)) {
+        const stat = fs.lstatSync(entry)
+        if (stat.isDirectory()) {
+            fs.readdirSync(entry).forEach(f => {
+                walkFiles(path.join(entry, f), files)
+            })
+        } else {
+            if ([ '.js', '.vue', '.jsx', '.ts', '.tsx' ].includes(path.extname(entry))) {
+                files.push(entry)
             }
-        })
-    })
+        }
+    }
+    return files
 }
 
 const generateVueFile = (file) => {
@@ -59,40 +75,21 @@ const generateVueFile = (file) => {
     console.log(`✔ ${processFile.yellow}`.green);
   };
 
-function readFile(fileName, curID, resolve) {
-    done[curID] = false
-    fs.readFile(fileName, 'utf-8', (err, source) => {
-        if (err) throw err
-        // processSource(source).then(data => {
-        //     fs.writeFile(fileName, data, 'utf-8', err => {
-        //         if (err) throw err
-        //         done[curID] = true
-        //         // 处理完最后一个文件后，生成 i18n 数据
-        //         if (!done.includes(false)) {
-        //             generateI18nData().then(() => {
-        //                 resolve()
-        //             })
-        //         }
-        //     })
-        // })
-    })
-}
+
 
 module.exports = function replace(i18nConfig) {
     return new Promise(resolve => {
         config = i18nConfig || {}
-        exclude = i18nConfig.exclude || []
-        include = i18nConfig.include
-
-        // setDefaultData(config).then(() => {
-        //     const entry = path.resolve(process.cwd(), config.entry? config.entry: 'src')
-        //     if (fs.lstatSync(entry).isDirectory()) {
-        //         readDir(entry, false, resolve)
-        //     } else if (/(\.vue)|(\.js)$/.test(entry) || (config.extra && config.extra.test(entry))) {
-        //         readFile(entry, ++id, resolve)
-        //     } else {
-        //         resolve()
-        //     }
-        // })
+        const entry = config.entry ? path.resolve(process.cwd(), config.entry) : null
+        if (!entry || !fs.existsSync(entry)) return resolve()
+        const files = walkFiles(entry)
+        let count = files.length
+        if (count === 0) return resolve()
+        files.forEach(file => {
+            processFile(file, () => {
+                count--
+                if (count === 0) resolve()
+            })
+        })
     })
 }

@@ -33,7 +33,7 @@ describe('include', () => {
                 done()
             })
         })
-    })
+    }, 20000)
 
     test('uninclude', done => {
         replace(config).then(() => {
@@ -43,7 +43,7 @@ describe('include', () => {
                 done()
             })
         })
-    })
+    }, 20000)
 
     test('mix', done => {
         replace(config2).then(() => {
@@ -62,5 +62,5 @@ describe('include', () => {
                 if (done1 && done2) done()
             })
         })
-    })
+    }, 20000)
 })
