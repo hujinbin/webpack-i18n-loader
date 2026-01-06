@@ -2,11 +2,11 @@
   <div class="container">
     <div class="language-switcher">
       <button @click="switchLanguage" class="lang-btn">
-        {{ $i18n.locale === 'zh' ? 'English' : '中文' }}
+        {{ $i18n.locale === 'zh' ? '中文' : 'English' }}
       </button>
     </div>
     
-    <h1>Vite + Vue 2 国际化示例</h1>
+    <h1>Vite + Vue 2 国际化示例 </h1>
     <p>这是一个测试文本</p>
     <button @click="count++">点击计数: {{ count }}</button>
     <p>当前语言: {{ $i18n.locale }}</p>

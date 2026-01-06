@@ -1,48 +1,32 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+// 直接导入语言包文件
+import zhMessages from './locale/zh.js';
+import enMessages from './locale/en.js';
 
 Vue.use(VueI18n);
 
-// 动态导入语言包，兼容 CommonJS 和 ESM
-let zh = {};
-let en = {};
-
-// 在 Vite 环境中使用动态导入来加载 CommonJS 模块
-async function loadLocales() {
-  try {
-    // 使用动态导入加载 CommonJS 模块
-    const zhModule = await import('./locale/zh.js');
-    zh = zhModule.default || zhModule;
-  } catch (error) {
-    console.warn('Failed to load zh locale:', error);
-  }
-
-  try {
-    const enModule = await import('./locale/en.js');
-    en = enModule.default || enModule;
-  } catch (error) {
-    // 如果没有英文包，使用中文内容作为英文显示
-    en = { ...zh };
-  }
-}
+console.log('=== i18n initialization ===');
+console.log('zh messages:', zhMessages);
+console.log('zh message count:', Object.keys(zhMessages).length);
+console.log('en messages:', enMessages);
+console.log('en message count:', Object.keys(enMessages).length);
 
 // 创建 i18n 实例
 const i18n = new VueI18n({
     locale: localStorage.getItem('locale') || 'zh',
     fallbackLocale: 'zh',
     messages: {
-        zh: {},
-        en: {}
+        zh: zhMessages,
+        en: enMessages
     },
-    silentTranslationWarn: true,
-    silentFallbackWarn: true
+    silentTranslationWarn: false,
+    silentFallbackWarn: false
 });
 
-// 异步加载语言包并更新 i18n 实例
-loadLocales().then(() => {
-    // 更新语言包
-    i18n.setLocaleMessage('zh', zh);
-    i18n.setLocaleMessage('en', en);
-});
+console.log('i18n instance created');
+console.log('Available locales:', i18n.availableLocales);
+console.log('Current locale:', i18n.locale);
+console.log('Sample translation for 35a9443eb81f48e1:', i18n.t('35a9443eb81f48e1'));
 
 export default i18n;
