@@ -3,6 +3,21 @@
   "version": "1.4.0",
   "description": "webpack-in-loader 一键式实现项目的国际化 语言包 处理的过程",
   "main": "index.js",
+  "type": "commonjs",
+  "exports": {
+    ".": {
+      "require": "./index.js",
+      "import": "./index.js"
+    },
+    "./vite": {
+      "import": "./vite.mjs",
+      "types": "./vite.d.ts"
+    },
+    "./vite.mjs": {
+      "import": "./vite.mjs",
+      "types": "./vite.d.ts"
+    }
+  },
   "bin": {
     "i18n": "bin/i18n.js"
   },

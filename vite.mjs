@@ -156,6 +156,7 @@ function vitePluginI18n(options = {}) {
   
   return {
     name: 'vite-plugin-i18n',
+    enforce: 'pre', // 在其他插件之前执行，确保能处理原始的 Vue 文件
     
     configResolved(resolvedConfig) {
       // 在配置解析后初始化
@@ -220,9 +221,10 @@ function vitePluginI18n(options = {}) {
         return null;
       }
       
-      // 排除语言包目录下的文件
-      const localeDir = path.dirname(localeFile);
-      if (id.startsWith(localeDir)) {
+      // 排除语言包目录下的文件 - 使用规范化路径比较
+      const localeDir = path.dirname(path.resolve(process.cwd(), localeFile));
+      const normalizedId = path.normalize(id);
+      if (normalizedId.startsWith(localeDir) || normalizedId.includes(path.normalize('src/locale')) || normalizedId.includes(path.normalize('src\\locale'))) {
         return null;
       }
       
@@ -236,11 +238,13 @@ function vitePluginI18n(options = {}) {
         } else if (fileSuffix === '.vue') {
           // 处理 Vue 单文件组件
           result = code.replace(/(<template[^>]*>)((.|\n|\r)*)(<\/template>)/gim, (_, preTag, content, $3, afterTag) => {
-            return `${preTag}${replaceTemplateContent(content)}${afterTag}`;
+            const transformedContent = replaceTemplateContent(content);
+            return `${preTag}${transformedContent}${afterTag}`;
           });
           
           result = result.replace(/(<script[^>]*>)((.|\n|\r)*)(<\/script>)/gim, (_, preTag, content, $3, afterTag) => {
-            return `${preTag}${replaceScriptContent(content)}${afterTag}`;
+            const transformedContent = replaceScriptContent(content);
+            return `${preTag}${transformedContent}${afterTag}`;
           });
         }
         
@@ -260,13 +264,22 @@ function vitePluginI18n(options = {}) {
     
     handleHotUpdate(ctx) {
       // 热更新处理
-      const localeFile = path.resolve(process.cwd(), config.dir || './src/locale/', config.file || 'zh.js');
+      const localeDir = config.dir || './src/locale/';
+      const localeFileName = config.file || 'zh.js';
+      const localeFile = path.resolve(process.cwd(), localeDir, localeFileName);
       
-      if (ctx.file === localeFile) {
+      // 检查是否是语言包文件变化
+      if (ctx.file === localeFile || ctx.file.includes(path.normalize(localeDir))) {
         // 语言包文件变化时，清除缓存
         messages = null;
         console.log('Language pack updated, clearing cache...');
-        return [];
+        
+        // 触发所有 .vue 文件重新加载
+        const vueModules = Array.from(ctx.server.moduleGraph.urlToModuleMap.values())
+          .filter(mod => mod.file && mod.file.endsWith('.vue'));
+        
+        console.log(`Reloading ${vueModules.length} Vue modules...`);
+        return vueModules;
       }
     }
   };
