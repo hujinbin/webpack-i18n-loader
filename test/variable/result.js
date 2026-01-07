@@ -1,2 +1,2 @@
-const test1 = this.$t('pre0suf')
-const test2 = this.$t('pre1suf')
+const test1 = $t('pre0suf')
+const test2 = $t('pre1suf')

@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- 一 -->
-        <div :value="$t('0')" :val="abc + $t('1') + ' afb'">{{ $t('2') }}</div>
+        <div v-bind:value="$t('c9e78713e31e5c0c')" v-bind:val="abc + $t('4f7669b940739082')">{{$t("db2a83c04d0d85ee")}}</div>
     </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
      * 三
     */
     created() {
-        const test = this.$t('3')
+        const test = $t('1e24cf708a14ce81')
     }
 }
 </script>

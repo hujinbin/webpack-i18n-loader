@@ -4,11 +4,13 @@ const fs = require('fs')
 const config1 = {
     entry: __dirname + '/page1.js',
     pluginPrefix: '$t',
+    id: 0,
 }
 
 const config2 = {
     entry: __dirname + '/page2.js',
     pluginPrefix: 't',
+    id: 0,
 }
 
 let pageContent1
@@ -29,7 +31,7 @@ describe('plugin-prefix', () => {
         replace(config1).then(() => {
             fs.readFile(config1.entry, 'utf-8', (err, source) => {
                 if (err) throw err
-                expect(source).toBe(`const test = this.$t('0')`)
+                expect(source).toBe(`const test = $t('0')`)
                 done()
             })
         })
@@ -39,7 +41,7 @@ describe('plugin-prefix', () => {
         replace(config2).then(() => {
             fs.readFile(config2.entry, 'utf-8', (err, source) => {
                 if (err) throw err
-                expect(source).toBe(`const test = this.t('0')`)
+                expect(source).toBe(`const test = t('0')`)
                 done()
             })
         })

@@ -4,16 +4,19 @@ const fs = require('fs')
 const config = {
     entry: __dirname + '/page.a',
     extra: /(\.a)|(\.b)$/,
+    id: 0,
 }
 
 const config2 = {
     entry: __dirname + '/page.b',
     extra: /(\.a)|(\.b)$/,
+    id: 0,
 }
 
 const config3 = {
     entry: __dirname + '/page.c',
     extra: /(\.a)|(\.b)$/,
+    id: 0,
 }
 
 let pageContent
@@ -37,7 +40,7 @@ describe('extra', () => {
         replace(config).then(() => {
             fs.readFile(config.entry, 'utf-8', (err, source) => {
                 if (err) throw err
-                expect(source).toBe(`const test = this.$t('0')`)
+                expect(source).toBe(`const test = $t('0')`)
                 done()
             })
         })
@@ -47,7 +50,7 @@ describe('extra', () => {
         replace(config2).then(() => {
             fs.readFile(config2.entry, 'utf-8', (err, source) => {
                 if (err) throw err
-                expect(source).toBe(`const test = this.$t('0')`)
+                expect(source).toBe(`const test = $t('0')`)
                 done()
             })
         })
