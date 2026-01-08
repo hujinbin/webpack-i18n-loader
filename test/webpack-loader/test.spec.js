@@ -53,12 +53,12 @@ describe('Webpack Loader', () => {
       fs.mkdirSync(localeDir, { recursive: true });
     }
 
-    // 创建语言包文件
+    // 创建语言包文件 - 使用MD5 hash作为key
     const messages = {
-      '0': '测试',
-      '1': '你好',
-      '2': '世界',
-      '3': '欢迎'
+      '3daf62825994fc4c': '测试',
+      '60daaeeec49c3df4': '你好',
+      'd2fc36c96e5ff830': '世界',
+      '09b3fc89097a7fff': '欢迎'
     };
     fs.writeFileSync(localeFile, `module.exports = ${JSON.stringify(messages, null, 2)}`);
 
