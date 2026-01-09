@@ -15,11 +15,11 @@ describe('Vite Plugin i18n Transform - Extended Tests', () => {
   }
   
   const mockMessages = {
-    '1e24cf708a14ce81': '测试文本',
-    '0c0b40c3c6d3a3d1': '你好世界', 
-    '427de5b5b5219063': '这是一个测试',
-    '3daf62825994fc4c': '测试',
-    '60daaeeec49c3df4': '你好'
+    'd9f09b7badda07e6': '测试文本',
+    '65396ee4aad0b4f1': '你好世界', 
+    'cfca700b9e09cf66': '这是一个测试',
+    'db06c78d1e24cf70': '测试',
+    '7eca689f0d3389d9': '你好'
   }
   
   beforeAll(() => {

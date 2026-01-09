@@ -44,6 +44,9 @@ function processFile(file, cb) {
     let content = fs.readFileSync(file, 'utf-8')
     let result
     
+    // 获取 pluginPrefix，默认为 $t
+    const prefix = config.pluginPrefix || '$t'
+    
     // 如果配置了 localeFile 但文件不存在，不进行转换
     if (config.localeFile && !fs.existsSync(path.resolve(process.cwd(), config.localeFile))) {
         cb && cb()
@@ -108,16 +111,35 @@ function processFile(file, cb) {
         if (templateContent) {
             // 第一遍：收集翻译（needReplace = false）
             const replaced = require('../lib/fileProcess').generateTemplate(globalMessages, templateContent, false)
-            result = result.replace(templateContent, replaced.content || replaced)
+            let replacedContent = replaced.content || replaced
+            // 替换 prefix
+            if (prefix !== '$t') {
+                replacedContent = replacedContent.replace(/\$t\(/g, `${prefix}(`)
+            }
+            result = result.replace(templateContent, replacedContent)
         }
         if (scriptContent) {
             // 第一遍：收集翻译（needReplace = false）
             const replaced = require('../lib/fileProcess').generateScript(globalMessages, scriptContent, false, 2)
-            result = result.replace(scriptContent, replaced.content || replaced)
+            let replacedContent = replaced.content || replaced
+            // 替换 prefix
+            if (prefix !== '$t') {
+                replacedContent = replacedContent.replace(/\$t\(/g, `${prefix}(`)
+            }
+            result = result.replace(scriptContent, replacedContent)
         }
     } else {
         // 第一遍：收集翻译（needReplace = false）
         result = require('../lib/fileProcess').generateScript(globalMessages, content, false, 2)
+        if (typeof result === 'object' && result.content) {
+            if (prefix !== '$t') {
+                result.content = result.content.replace(/\$t\(/g, `${prefix}(`)
+            }
+        } else if (typeof result === 'string') {
+            if (prefix !== '$t') {
+                result = result.replace(/\$t\(/g, `${prefix}(`)
+            }
+        }
     }
     fs.writeFileSync(file, typeof result === 'string' ? result : result.content, 'utf-8')
     cb && cb()

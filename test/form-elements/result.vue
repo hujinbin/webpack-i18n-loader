@@ -1,38 +1,38 @@
 <template>
   <div class="form-container">
-    <h1>{{$t("be23983c8d3e66d6")}}</h1>
+    <h1>{{$t("8d3e66d61de7c4f4")}}</h1>
     
     <div class="form-group">
-      <label>{{$t("60d0458ac6ebef0f")}}</label>
-      <input type="text" v-bind:placeholder="$t('8093e3921d80b5da')" v-model="name">
+      <label>{{$t("c6ebef0fff1331af")}}</label>
+      <input type="text" v-bind:placeholder="$t('1d80b5da7947f658')" v-model="name">
     </div>
     
     <div class="form-group">
-      <label>{{$t("3bc5e602b2d4c7ff")}}</label>
-      <input type="email" v-bind:placeholder="$t('2ba4c815875437de')" v-model="email">
+      <label>{{$t("b2d4c7fffe79258e")}}</label>
+      <input type="email" v-bind:placeholder="$t('875437de0ead4423')" v-model="email">
     </div>
     
     <div class="form-group">
-      <label>{{$t("a8105204604a0b11")}}</label>
-      <input type="password" v-bind:placeholder="$t('e39ffe99e93cb6cc')" v-model="password">
+      <label>{{$t("604a0b11e916f387")}}</label>
+      <input type="password" v-bind:placeholder="$t('e93cb6cc8d5978ed')" v-model="password">
     </div>
     
     <div class="form-group">
-      <label>{{$t("2432b57515b3627f")}}</label>
+      <label>{{$t("15b3627faddccb1d")}}</label>
       <textarea :placeholder="textareaPlaceholder" v-model="notes"></textarea>
     </div>
     
     <div class="form-group">
       <select v-model="city">
-        <option value="">{{$t("7e75a9ab5fa5bda8")}}</option>
-        <option value="bj">{{$t("692e92669c0ca340")}}</option>
-        <option value="sh">{{$t("e94e8bd35fc8144f")}}</option>
-        <option value="gz">{{$t("7e040aa9cb2ec494")}}</option>
+        <option value="">{{$t("5fa5bda88cfc8757")}}</option>
+        <option value="bj">{{$t("9c0ca340eff4fdce")}}</option>
+        <option value="sh">{{$t("5fc8144f38fd1ebc")}}</option>
+        <option value="gz">{{$t("cb2ec494b0a4d52c")}}</option>
       </select>
     </div>
     
-    <button @click="submit">{{$t("939d5345ad4345db")}}</button>
-    <button @click="reset">{{$t("4b9c3271dc2f299d")}}</button>
+    <button @click="submit">{{$t("ad4345dbaabe1479")}}</button>
+    <button @click="reset">{{$t("dc2f299dc3aeffb3")}}</button>
   </div>
 </template>
 
@@ -45,21 +45,21 @@ export default {
       password: '',
       notes: '',
       city: '',
-      textareaPlaceholder: $t('245475e1fbcb099d')
+      textareaPlaceholder: $t('fbcb099dac261234')
     };
   },
   methods: {
     submit() {
       if (!this.name) {
-        alert($t('8093e3921d80b5da'));
+        alert($t('1d80b5da7947f658'));
         return;
       }
-      console.log($t('afeb8e0f887043d4'));
+      console.log($t('887043d444e4f89a'));
     },
     reset() {
-      const msg = $t('7cea6cafa161daea');
+      const msg = $t('a161daeafdf3a524');
       if (confirm(msg)) {
-        console.log($t('a865cc9f3b64bc7a'));
+        console.log($t('3b64bc7affa6dcff'));
       }
     }
   }

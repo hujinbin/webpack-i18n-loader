@@ -55,10 +55,10 @@ describe('Webpack Loader', () => {
 
     // 创建语言包文件 - 使用MD5 hash作为key
     const messages = {
-      '3daf62825994fc4c': '测试',
-      '60daaeeec49c3df4': '你好',
-      'd2fc36c96e5ff830': '世界',
-      '09b3fc89097a7fff': '欢迎'
+      'db06c78d1e24cf70': '测试',
+      '7eca689f0d3389d9': '你好',
+      'c086b3008aca0efa': '世界',
+      '47781b8a72bcbb7e': '欢迎'
     };
     fs.writeFileSync(localeFile, `module.exports = ${JSON.stringify(messages, null, 2)}`);
 

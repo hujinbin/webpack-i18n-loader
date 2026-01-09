@@ -11,9 +11,9 @@ const mockConfig = {
 
 // 模拟语言包文件
 const mockMessages = {
-  'adda07e6db79008e': '测试文本',
-  'aad0b4f17aacd1c6': '你好世界',
-  '9e09cf664f3ae807': '这是一个测试'
+  'd9f09b7badda07e6': '测试文本',
+  '65396ee4aad0b4f1': '你好世界',
+  'cfca700b9e09cf66': '这是一个测试'
 }
 
 // 创建测试用的语言包文件
@@ -130,7 +130,7 @@ export default {
     const result = await plugin.transform(code, id)
     
     expect(result.code).toContain('$t(')
-    expect(result.code).toContain('427de5b5b5219063')  // MD5 of '这是一个测试'
+    expect(result.code).toContain('cfca700b9e09cf66')  // MD5 of '这是一个测试'
     expect(result.map).toBe(null)
   })
   
@@ -164,7 +164,7 @@ const test: Test = { message: '测试文本' };`
     const result = await plugin.transform(code, id)
     
     expect(result.code).toContain('$t(')
-    expect(result.code).toContain('1e24cf708a14ce81')  // MD5 of '测试文本'
+    expect(result.code).toContain('d9f09b7badda07e6')  // MD5 of '测试文本'
     expect(result.map).toBe(null)
   })
   
@@ -176,7 +176,7 @@ const test: Test = { message: '测试文本' };`
     
     const result = await plugin.transform(code, id)
     
-    expect(result.code).toContain('{$t("1e24cf708a14ce81")}')  // MD5 of '测试文本'
+    expect(result.code).toContain('{$t("d9f09b7badda07e6")}')  // MD5 of '测试文本'
     expect(result.map).toBe(null)
   })
   

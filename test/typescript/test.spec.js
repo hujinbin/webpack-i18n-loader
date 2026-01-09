@@ -3,7 +3,6 @@ const fs = require('fs')
 
 const config = {
     entry: __dirname + '/page.ts',
-    id: 0,
 }
 
 let pageContent
