@@ -1,0 +1,38 @@
+# 工作流名称，会显示在GitHub Actions面板中
+name: Run NPM Test on Pull Request
+
+# 触发条件：当有Pull Request（MR）创建/更新时，触发该工作流
+# 适用于所有分支的PR（如需限制特定分支，可补充branches配置）
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]  # 触发场景：创建、同步代码、重新打开
+    # 可选：限制仅对main/develop分支的PR触发
+    # branches: [main, develop]
+
+# 定义要执行的任务（jobs）
+jobs:
+  # 任务名称：npm-test（可自定义）
+  npm-test:
+    # 运行环境：选择最新的Ubuntu（兼容Node.js，运行速度快）
+    runs-on: ubuntu-latest
+
+    # 任务执行步骤
+    steps:
+      # 步骤1：检出当前PR的项目代码（必须步骤，否则无法操作项目文件）
+      - name: Checkout repository code
+        uses: actions/checkout@v4  # 复用官方的检出动作，稳定可靠
+
+      # 步骤2：配置Node.js环境（匹配你的项目Node版本，可修改version）
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'  # 替换为你的项目所需Node版本（如16、18）
+          cache: 'npm'  # 缓存npm依赖，提升后续运行速度
+
+      # 步骤3：安装项目所有npm依赖（对应本地的npm install）
+      - name: Install npm dependencies
+        run: npm install
+
+      # 步骤4：运行测试用例（核心步骤，执行npm run test）
+      - name: Run test cases
+        run: npm run test
