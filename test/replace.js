@@ -103,14 +103,19 @@ function processFile(file, cb) {
         }
     }
     
+    // 使用 globalMessages 进行替换
+    const messages = globalMessages
+    // 判断是否使用自定义 mapFile
+    const hasCustomMap = config.mapFile && Object.keys(messages).length > 0
+    
     if (ext === '.vue') {
         // 只处理 template/script
         let [, templateContent = ''] = content.match(/<template[^>]*>((.|\n|\r)*)<\/template>/im) || [];
         let [, scriptContent = ''] = content.match(/<script[^>]*>((.|\n|\r)*)<\/script>/im) || [];
         result = content
         if (templateContent) {
-            // 第一遍：收集翻译（needReplace = false）
-            const replaced = require('../lib/fileProcess').generateTemplate(globalMessages, templateContent, false)
+            // 使用真实的 generateTemplate
+            const replaced = require('../lib/fileProcess').generateTemplate(messages, templateContent, hasCustomMap)
             let replacedContent = replaced.content || replaced
             // 替换 prefix
             if (prefix !== '$t') {
@@ -119,9 +124,10 @@ function processFile(file, cb) {
             result = result.replace(templateContent, replacedContent)
         }
         if (scriptContent) {
-            // 第一遍：收集翻译（needReplace = false）
-            const replaced = require('../lib/fileProcess').generateScript(globalMessages, scriptContent, false, 2)
+            // 使用真实的 generateScript，使用自定义key但不注入import
+            const replaced = require('../lib/fileProcess').generateScript(messages, scriptContent, hasCustomMap, 2, true)
             let replacedContent = replaced.content || replaced
+            
             // 替换 prefix
             if (prefix !== '$t') {
                 replacedContent = replacedContent.replace(/\$t\(/g, `${prefix}(`)
@@ -129,16 +135,15 @@ function processFile(file, cb) {
             result = result.replace(scriptContent, replacedContent)
         }
     } else {
-        // 第一遍：收集翻译（needReplace = false）
-        result = require('../lib/fileProcess').generateScript(globalMessages, content, false, 2)
+        // 对于 .js 文件，使用自定义key但不注入import
+        result = require('../lib/fileProcess').generateScript(messages, content, hasCustomMap, 2, true)
         if (typeof result === 'object' && result.content) {
-            if (prefix !== '$t') {
-                result.content = result.content.replace(/\$t\(/g, `${prefix}(`)
-            }
-        } else if (typeof result === 'string') {
-            if (prefix !== '$t') {
-                result = result.replace(/\$t\(/g, `${prefix}(`)
-            }
+            result = result.content || result
+        }
+        
+        // 替换 prefix
+        if (prefix !== '$t') {
+            result = result.replace(/\$t\(/g, `${prefix}(`)
         }
     }
     fs.writeFileSync(file, typeof result === 'string' ? result : result.content, 'utf-8')
@@ -208,30 +213,75 @@ module.exports = function replace(i18nConfig) {
         globalMessages = {}
         keyCounter = typeof config.id !== 'undefined' ? config.id : 0
         
-        // 应用配置补丁
-        patchUtils(config)
-        
-        const entry = config.entry ? path.resolve(process.cwd(), config.entry) : null
-        if (!entry || !fs.existsSync(entry)) {
-            restoreUtils()
-            return resolve()
-        }
-        
-        const files = walkFiles(entry)
-        let count = files.length
-        if (count === 0) {
-            restoreUtils()
-            return resolve()
-        }
-        
-        files.forEach(file => {
-            processFile(file, () => {
-                count--
-                if (count === 0) {
-                    restoreUtils()
-                    resolve()
+        // 如果有 mapFile，加载映射
+        if (config.mapFile) {
+            const mapFilePath = path.resolve(process.cwd(), config.mapFile)
+            if (fs.existsSync(mapFilePath)) {
+                // 支持自定义 loader
+                if (config.loader) {
+                    const loaderPath = path.resolve(process.cwd(), config.loader)
+                    const loader = require(loaderPath)
+                    loader(mapFilePath, (data) => {
+                        // 将 data 转换为 key->value 的映射
+                        Object.keys(data).forEach(key => {
+                            const hash = Utils.Md5_16(key)
+                            globalMessages[hash] = data[key]
+                        })
+                        processEntryFiles()
+                    })
+                    return
+                } else {
+                    // 默认加载方式
+                    const ext = path.extname(mapFilePath)
+                    if (ext === '.json') {
+                        const data = JSON.parse(fs.readFileSync(mapFilePath, 'utf-8'))
+                        Object.keys(data).forEach(key => {
+                            const hash = Utils.Md5_16(key)
+                            globalMessages[hash] = data[key]
+                        })
+                    } else if (ext === '.js') {
+                        const data = require(mapFilePath)
+                        if (data.zh) {
+                            // 处理 { zh: { 10000: '测试' } } 格式
+                            Object.keys(data.zh).forEach(key => {
+                                const value = data.zh[key]
+                                const hash = Utils.Md5_16(value)
+                                globalMessages[hash] = key
+                            })
+                        }
+                    }
                 }
+            }
+        }
+        
+        processEntryFiles()
+        
+        function processEntryFiles() {
+            // 应用配置补丁
+            patchUtils(config)
+            
+            const entry = config.entry ? path.resolve(process.cwd(), config.entry) : null
+            if (!entry || !fs.existsSync(entry)) {
+                restoreUtils()
+                return resolve()
+            }
+            
+            const files = walkFiles(entry)
+            let count = files.length
+            if (count === 0) {
+                restoreUtils()
+                return resolve()
+            }
+            
+            files.forEach(file => {
+                processFile(file, () => {
+                    count--
+                    if (count === 0) {
+                        restoreUtils()
+                        resolve()
+                    }
+                })
             })
-        })
+        }
     })
 }

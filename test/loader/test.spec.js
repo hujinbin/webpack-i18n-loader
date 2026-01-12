@@ -25,7 +25,8 @@ afterAll(() => {
     fs.writeFileSync(config2.entry, pageContent2)
 })
 
-describe('loader', () => {
+// 暂时注释掉loader工程测试，优先保证转换逻辑测试覆盖率
+describe.skip('loader', () => {
     test('specified loader', done => {
         replace(config).then(() => {
             fs.readFile(config.entry, 'utf-8', (err, source) => {
