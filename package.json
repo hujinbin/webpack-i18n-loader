@@ -1,6 +1,6 @@
 {
   "name": "webpack-in-loader",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "webpack-in-loader 一键式实现项目的国际化 语言包 处理的过程",
   "main": "index.js",
   "type": "commonjs",
@@ -27,7 +27,8 @@
     "example": "cd examples/vue2 && npm run dev",
     "example:vue3": "cd examples/vue3 && npm run dev",
     "test": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "prepublishOnly": "npm run test"
   },
   "keywords": [
     "webpack",

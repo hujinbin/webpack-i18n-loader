@@ -1,4 +1,13 @@
 ### 更新日志
+<a name="2.0.0"></a>
+## [2.0.0](https://github.com/hujinbin/webpack-i18n-loader/tree/v2.0.0)
+
+#### 2.0.0
+
+* 新增 Vite 插件支持，可在 Vite 项目中使用
+* 优化中文内容识别规则，提升转换准确性
+* 完善国际化转换逻辑，支持更多边缘场景
+
 <a name="1.4.0"></a>
 ## [1.4.0](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.4.0)
 

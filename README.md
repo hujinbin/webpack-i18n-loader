@@ -1,5 +1,5 @@
 # webpack-in-loader
-一键式实现项目的国际化 语言包 处理的过程，vue2和vue3版本版本的loader
+一键式实现项目的国际化语言包处理，支持 Vue2、Vue3，兼容 Webpack 和 Vite 构建工具
 
 ---
 
@@ -50,7 +50,13 @@ yarn add webpack-in-loader --dev
 
 ## 使用
 
-本组件分为两部分，一部分是cli，目的是为了生成资源文件，一部分是loader，目的是为了替换项目中的中文为国际化的代码，我们最好在打包测试/上线前执行以下cli命令，生成资源文件，然后拷贝一份资源文件给翻译组进行各国语言的翻译，之后将资源文件配置到vue-18n@5.x上，再进行打包即可。
+本组件分为两部分：
+1. **CLI 工具**：用于生成国际化资源文件和自动翻译
+2. **构建工具集成**：
+   - Webpack Loader：适用于 Webpack 构建的项目
+   - Vite 插件：适用于 Vite 构建的项目（v2.0.0+）
+
+建议在打包测试/上线前执行 CLI 命令生成资源文件，然后配置到 vue-i18n 上使用。
 
 ### cli的使用
 
@@ -201,6 +207,53 @@ module.exports = {
   }
 }
 ```
+
+### Vite 插件的使用
+
+从 2.0.0 版本开始，支持在 Vite 项目中使用。
+
+#### 1. 引入插件
+
+在 `vite.config.js` 或 `vite.config.ts` 中引入并配置插件：
+
+```javascript
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import { vitePluginI18n } from 'webpack-in-loader/vite';
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    vitePluginI18n()
+  ]
+});
+```
+
+#### 2. 创建配置文件
+
+在项目根目录创建 `i18n-config.js`：
+
+```javascript
+module.exports = {
+  dir: './src/locale/',  // 语言包目录
+  file: 'zh.js',         // 语言包文件名
+  open: true             // 是否启用插件
+};
+```
+
+#### 3. 功能特性
+
+- 自动转换 `.vue`、`.js`、`.jsx`、`.ts`、`.tsx` 文件中的中文
+- 支持语言包文件热更新，修改语言包后自动刷新页面
+- 自动排除 `node_modules` 和语言包目录
+
+#### 4. 开发示例
+
+可以参考项目中的示例：
+- `examples/vite-vue2/` - Vue 2 + Vite 示例
+- `examples/vite-vue3/` - Vue 3 + Vite 示例
+
+更多 Vite 插件详细说明，请查看 [VITE_PLUGIN_README.md](./VITE_PLUGIN_README.md)
 
 ### 国际化资源配置
 
