@@ -1,0 +1,12 @@
+{
+	"点击:": "Click:",
+	"中文": "Chinese",
+	"Vite + Vue 2 国际化示例": "Vite + Vue 2 Internationalization Example",
+	"这是一个测试文本": "This is a test text",
+	"点击计数:": "Click count:",
+	"当前语言:": "Current language:",
+	"功能演示": "Feature Demonstration",
+	"自动识别中文并生成键值对": "Auto-identify Chinese and generate key-value pairs",
+	"支持语言切换功能": "Support language switching",
+	"兼容 Vue 2 和 Vite": "Compatible with Vue 2 and Vite"
+}
