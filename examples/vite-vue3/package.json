@@ -22,6 +22,6 @@
     "vite": "^6.1.0",
     "vite-plugin-commonjs": "^0.10.4",
     "vue-tsc": "^2.2.0",
-    "webpack-in-loader": "^1.4.0"
+    "webpack-in-loader": "file:../.."
   }
 }
