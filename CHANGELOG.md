@@ -7,6 +7,9 @@
 * 新增 Vite 插件支持，可在 Vite 项目中使用
 * 优化中文内容识别规则，提升转换准确性
 * 完善国际化转换逻辑，支持更多边缘场景
+* AI 翻译支持更多模型和厂商（DeepSeek、通义千问、Moonshot、智谱 GLM 等）
+* 新增 `aiKey`、`aiModel`、`aiBaseUrl` 配置项，灵活配置 AI 服务
+* 保持 `openAiKey` 向后兼容，旧版本配置无需改动
 
 <a name="1.4.0"></a>
 ## [1.4.0](https://github.com/hujinbin/webpack-i18n-loader/tree/v1.4.0)

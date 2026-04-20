@@ -86,7 +86,7 @@ Options:
 请务必记住上述的国际化资源文件的路径和文件名，loader中需要配置，若未设置采用默认，loader中也可以不用设置
 
 #### 自动翻译
-根据mode配置选择翻译方式：支持百度翻译和ChatGPT两种翻译方式，mode未设置则选择默认项，使用百度翻译
+根据 `mode` 配置选择翻译方式：支持百度翻译和 AI 翻译两种方式，`mode` 未设置则使用默认项（百度翻译）。
 
 ```bash
 npx i18n init 
@@ -102,18 +102,52 @@ Options:
 code必须为百度翻译文档上的code值
 
 
-初始化项目，生成的配置文件 i18n-config.json
-```bash
+初始化项目，生成的配置文件 i18n-config.js
+```javascript
 module.exports = {
     dir: "./src/locale/", // 目标目录
     file: 'zh.js', // 翻译的文件
     distLangs: ['en'], // 要翻译的语言
     open: true, // leader是否启用 默认true
-    mode:'Baidu', //翻译方式: 1.Baidu:百度翻译 2:chatGPT:openai翻译
-    appId:'', // 百度翻译appid
-    secret:'', // 百度翻译密钥
-    openAiKey: '', // chatGPT key
-    singleNum: 3000, //百度翻译单次请求最长次数 可配置范围（3900 - 600）不填则为默认值 1500（百度账号不同等级最长次数不同）
+    mode: 'Baidu', // 翻译方式: Baidu=百度翻译 | chatGPT/AI=AI翻译(兼容所有OpenAI兼容接口)
+    appId: '', // 百度翻译appid
+    secret: '', // 百度翻译密钥
+    openAiKey: '', // AI翻译密钥 (兼容旧配置)
+    aiKey: '', // AI翻译密钥 (优先级高于 openAiKey)
+    aiModel: '', // AI模型名称，不填默认 gpt-3.5-turbo
+    aiBaseUrl: '', // AI服务API地址，不填默认 OpenAI官方地址
+    singleNum: 3000, //百度翻译单次请求最长次数 可配置范围（3900 - 600）不填则为默认值 1500
+};
+```
+
+**AI 翻译支持的模型和厂商示例：**
+
+| 厂商 | aiModel | aiBaseUrl |
+|---|---|---|
+| OpenAI (GPT-4) | `gpt-4` | 不填 |
+| OpenAI (GPT-3.5) | `gpt-3.5-turbo` | 不填 |
+| DeepSeek | `deepseek-chat` | `https://api.deepseek.com/v1` |
+| 通义千问 | `qwen-turbo` | `https://dashscope.aliyuncs.com/compatible-mode/v1` |
+| Moonshot/Kimi | `moonshot-v1-8k` | `https://api.moonshot.cn/v1` |
+| 智谱 GLM | `glm-4` | `https://open.bigmodel.cn/api/paas/v4` |
+
+> 凡是支持 OpenAI ChatGPT 接口格式的 AI 服务商均可使用，只需填入对应的 `aiModel` 和 `aiBaseUrl`。
+
+**AI 翻译配置示例：**
+
+```javascript
+// 使用 DeepSeek 翻译
+module.exports = {
+    mode: 'chatGPT', // 或任意非 Baidu 值
+    aiKey: 'your-deepseek-api-key',
+    aiModel: 'deepseek-chat',
+    aiBaseUrl: 'https://api.deepseek.com/v1',
+};
+
+// 继续使用旧版 openAiKey 配置（仍兼容）
+module.exports = {
+    mode: 'chatGPT',
+    openAiKey: 'your-api-key', // 自动使用 gpt-3.5-turbo
 };
 ```
 
